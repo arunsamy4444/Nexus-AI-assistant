@@ -1,0 +1,206 @@
+[
+  {
+    "question": "How many doctors are there in the hospital?",
+    "answer": "There are 25 doctors in the hospital."
+  },
+  {
+    "question": "How many nurses are working here?",
+    "answer": "There are 40 nurses currently working."
+  },
+  {
+    "question": "What are the names and ages of doctors?",
+    "answer": "Dr. Suresh (45), Dr. Meena (38), Dr. Ravi (50), Dr. Priya (35), Dr. Arjun (42)."
+  },
+  {
+    "question": "How many rooms are available in the hospital?",
+    "answer": "The hospital has 60 rooms in total."
+  },
+  {
+    "question": "How many operation theatres are there?",
+    "answer": "There are 5 operation theatres in the hospital."
+  },
+  {
+    "question": "What are the timings of Dr. Meena?",
+    "answer": "Dr. Meena is available from 10 AM to 4 PM on weekdays."
+  },
+  {
+    "question": "Where is the X-Ray room located?",
+    "answer": "The X-Ray room is located on the ground floor, near the reception."
+  },
+  {
+    "question": "Which floor is the ICU located on?",
+    "answer": "The ICU is located on the 2nd floor."
+  },
+  {
+    "question": "What is the OPD timing?",
+    "answer": "The OPD is open from 9 AM to 1 PM and 4 PM to 7 PM."
+  },
+  {
+    "question": "Where can I find the pediatric department?",
+    "answer": "The pediatric department is on the 1st floor, Room No. 103 to 110."
+  },
+  {
+    "question": "Who is the chief surgeon?",
+    "answer": "The chief surgeon is Dr. Ravi Kumar."
+  },
+  {
+    "question": "How to reach the emergency department?",
+    "answer": "The emergency department is accessible through the side entrance and is open 24/7."
+  },
+  {
+    "question": "Are there private rooms available?",
+    "answer": "Yes, there are 10 private rooms available with air conditioning."
+  },
+  {
+    "question": "How many patients can the hospital accommodate?",
+    "answer": "The hospital can accommodate up to 150 patients at a time."
+  },
+  {
+    "question": "Is there a blood bank in the hospital?",
+    "answer": "Yes, the hospital has an in-house blood bank."
+  },
+  {
+    "question": "What specialties are available?",
+    "answer": "The hospital offers cardiology, neurology, orthopedics, pediatrics, gynecology, and general surgery."
+  },
+  {
+    "question": "Is parking available for patients and visitors?",
+    "answer": "Yes, there is a parking lot with space for 100 vehicles."
+  },
+  {
+    "question": "What is the visiting hours policy?",
+    "answer": "Visitors are allowed from 10 AM to 8 PM daily."
+  },
+  {
+    "question": "Is there a pharmacy inside the hospital?",
+    "answer": "Yes, the hospital has a 24/7 pharmacy."
+  },
+  {
+    "question": "Are diagnostic services available?",
+    "answer": "Yes, including MRI, CT scan, ultrasound, and blood tests."
+  },
+  {
+    "question": "How many ambulances does the hospital have?",
+    "answer": "The hospital has 3 fully equipped ambulances."
+  },
+  {
+    "question": "Is there a cafeteria inside the hospital?",
+    "answer": "Yes, the cafeteria is located on the ground floor."
+  },
+  {
+    "question": "Who is the hospital director?",
+    "answer": "The hospital director is Mr. Rajesh Kumar."
+  },
+  {
+    "question": "What is the hospital's emergency contact number?",
+    "answer": "The emergency contact number is 123-456-7890."
+  },
+  {
+    "question": "Are there isolation wards available?",
+    "answer": "Yes, there are 5 isolation wards."
+  },
+  {
+    "question": "What are the qualifications of the doctors?",
+    "answer": "All doctors are certified with MD or equivalent degrees."
+  },
+  {
+    "question": "Is there an ICU for pediatric patients?",
+    "answer": "Yes, there is a separate pediatric ICU on the 3rd floor."
+  },
+  {
+    "question": "How many staff nurses are trained in critical care?",
+    "answer": "15 nurses are trained in critical care."
+  },
+  {
+    "question": "Are outpatient services available on weekends?",
+    "answer": "Yes, outpatient services are open from 9 AM to 1 PM on Saturdays."
+  },
+  {
+    "question": "Is there a radiology department?",
+    "answer": "Yes, radiology services are available 24/7."
+  },
+  {
+    "question": "Where is the billing department located?",
+    "answer": "The billing department is on the ground floor near the main entrance."
+  },
+  {
+    "question": "What insurance providers are accepted?",
+    "answer": "We accept all major insurance providers including ABC Health and XYZ Insurance."
+  },
+  {
+    "question": "Are visitors allowed in the ICU?",
+    "answer": "Visitors are allowed in the ICU only during specific visiting hours with permission."
+  },
+  {
+    "question": "How to book an appointment?",
+    "answer": "Appointments can be booked online, via phone, or at the reception."
+  },
+  {
+    "question": "What payment methods are accepted?",
+    "answer": "Cash, credit/debit cards, UPI, and online payments are accepted."
+  },
+  {
+    "question": "Is there a physiotherapy department?",
+    "answer": "Yes, physiotherapy services are available on the 2nd floor."
+  },
+  {
+    "question": "Are there facilities for disabled patients?",
+    "answer": "Yes, the hospital is fully accessible with ramps and elevators."
+  },
+  {
+    "question": "Where can I find the medical records department?",
+    "answer": "It is located on the 1st floor near the admin offices."
+  },
+  {
+    "question": "Is telemedicine available?",
+    "answer": "Yes, telemedicine consultations are available for follow-ups."
+  },
+  {
+    "question": "How many beds are there in the hospital?",
+    "answer": "The hospital has a total of 120 beds."
+  },
+  {
+    "question": "What are the COVID-19 protocols?",
+    "answer": "Masks are mandatory, social distancing is enforced, and vaccination is encouraged."
+  },
+  {
+    "question": "Is there a chapel or prayer room?",
+    "answer": "Yes, there is a multi-faith prayer room on the ground floor."
+  },
+  {
+    "question": "Are there specialists for mental health?",
+    "answer": "Yes, the hospital has psychiatrists and psychologists on staff."
+  },
+  {
+    "question": "Where is the outpatient pharmacy?",
+    "answer": "The outpatient pharmacy is located next to the OPD area."
+  },
+  {
+    "question": "What should I do in case of an emergency?",
+    "answer": "Call the emergency number 123-456-7890 or go directly to the emergency department."
+  },
+  {
+    "question": "Does the hospital provide ambulance services?",
+    "answer": "Yes, ambulance services are available 24/7."
+  },
+  {
+    "question": "Where is the cafeteria located?",
+    "answer": "The cafeteria is on the ground floor near the main lobby."
+  },
+  {
+    "question": "Are medical records confidential?",
+    "answer": "Yes, all patient information is handled confidentially."
+  },
+  {
+    "question": "Are there visiting restrictions during pandemics?",
+    "answer": "Yes, visiting hours and access may be restricted during health emergencies."
+  },
+  {
+    "question": "What is the hospital's address?",
+    "answer": "123 Health Street, Cityname, State, ZIP Code."
+  },
+  {
+    "question": "Is there a lost and found department?",
+    "answer": "Yes, it is located at the main reception."
+  }
+]
