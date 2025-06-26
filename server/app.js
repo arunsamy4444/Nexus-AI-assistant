@@ -16,9 +16,10 @@ const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/
 
 
 app.use(cors({
-  origin: "https://your-frontend-name.vercel.app", // change this
+  origin: "https://nexus-ai-assistant-nine.vercel.app", // ✅ actual deployed frontend URL
   credentials: true
 }));
+
 app.use(express.json());
 
 
