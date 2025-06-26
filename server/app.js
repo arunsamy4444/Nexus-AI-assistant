@@ -119,17 +119,16 @@ app.post("/gemini-chat", async (req, res) => {
 
   try {
     const response = await axios.post(GEMINI_API_URL, {
-      model: "gemini-1.5-flash",
-      prompt: {
-        messages: [
-          {
-            author: "user",
-            content: {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
               text: query
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
     });
 
     const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
@@ -139,6 +138,7 @@ app.post("/gemini-chat", async (req, res) => {
     res.status(500).json({ error: "Failed to get answer from Gemini" });
   }
 });
+
 
 app.post("/college-ask", async (req, res) => {
   const { query } = req.body;
