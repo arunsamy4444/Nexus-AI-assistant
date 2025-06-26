@@ -15,15 +15,6 @@ export default function App() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("qna");
   const speechRef = useRef(null);
-  const [introSpoken, setIntroSpoken] = useState(false);
-
-
-  const speakIntro = () => {
-  if (introSpoken) return; // prevent repeat
-
-  speak("Hi, I'm Nexus – your AI voice assistant.");
-  setIntroSpoken(true);
-};
 
   const speak = (text) => {
     if (!window.speechSynthesis || !text) return;
@@ -119,6 +110,20 @@ export default function App() {
     speak("Sorry, I didn't understand the command.");
   }
 };
+
+
+  useEffect(() => {
+  const handleClickOnce = () => {
+    speakIntro();
+    window.removeEventListener("click", handleClickOnce);
+  };
+
+  window.addEventListener("click", handleClickOnce);
+
+  return () => {
+    window.removeEventListener("click", handleClickOnce);
+  };
+}, [introSpoken]);
 
   return (
     <div className="container">
