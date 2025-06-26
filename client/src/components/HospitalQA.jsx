@@ -43,7 +43,7 @@ export default function HospitalQA({ lang }) {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/ask", {
+const res = await fetch(`${process.env.REACT_APP_BASE_URL}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: query }),

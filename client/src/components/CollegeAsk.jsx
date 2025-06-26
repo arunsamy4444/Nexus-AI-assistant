@@ -67,7 +67,8 @@ const CollegeAsk = () => {
     if (!text.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:5000/college-ask", {
+const res = await fetch(`${process.env.REACT_APP_BASE_URL}/college-ask`, {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: text }),

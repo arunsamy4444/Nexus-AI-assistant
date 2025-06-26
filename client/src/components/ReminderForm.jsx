@@ -11,12 +11,36 @@ export default function ReminderForm({ onSubmit }) {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(form);
-    alert("📲 Reminder scheduled!");
-    setForm({ phone: "", date: "", time: "", reason: "" });
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch(`${process.env.REACT_APP_BASE_URL}/set-reminder`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("📲 Reminder scheduled!");
+      setForm({ phone: "", date: "", time: "", reason: "" });
+    } else {
+      alert("❌ Failed: " + data.message);
+    }
+  } catch (err) {
+    console.error("Reminder error:", err);
+    alert("❌ Server error. Try again.");
+  }
+};
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   onSubmit(form);
+  //   alert("📲 Reminder scheduled!");
+  //   setForm({ phone: "", date: "", time: "", reason: "" });
+  // };
 
   return (
     <>
