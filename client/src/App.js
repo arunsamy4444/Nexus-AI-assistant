@@ -134,7 +134,7 @@ export default function App() {
 
       <div className="intro">
         <h2>NEXUS AI: Your English Voice Assistant</h2>
-        <p>🎙️ Speak in English to get answers instantly.</p>
+        // <p>🎙️ Speak in English to get answers instantly.</p>
         <p>📢 Get voice responses, translated text, and set smart reminders!</p>
       </div>
 
@@ -148,17 +148,17 @@ export default function App() {
               placeholder="Ask something..."
               style={{ flex: 1, padding: 8 }}
             />
-            <button
-              onClick={() => {
-                setAnswer("");
-                if (query.trim()) {
-                  handleAnswer("");
-                  setTimeout(() => {
-                    document.getElementById("trigger-bot")?.click();
-                  }, 100);
-                }
-              }}
-            >
+       <button
+  onClick={() => {
+    setAnswer(""); // reset answer first
+    if (query.trim()) {
+      handleAnswer(""); // clear response state
+      setTimeout(() => {
+        document.getElementById("trigger-bot")?.click(); // manually trigger Gemini from ChatBot
+      }, 100);
+    }
+  }}
+>
               Send
             </button>
             <button
