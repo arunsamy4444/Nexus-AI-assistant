@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import SpeechToText from "./SpeechToText";
 import "./ChatBot.css";
 
-export default function ChatBot({ onResponse, onSpeech }) {
-  const [inputText, setInputText] = useState("");
+export default function ChatBot({ inputText, onResponse, onSpeech }) {
   const [loading, setLoading] = useState(false);
-  const [answer, setAnswer] = useState("");
 
-  const queryGemini = async () => {
-    const text = inputText.trim();
-    if (!text) return;
+  const queryGemini = async (text) => {
+    if (!text?.trim()) return;
 
     setLoading(true);
     try {
@@ -21,37 +18,23 @@ export default function ChatBot({ onResponse, onSpeech }) {
 
       const data = await response.json();
       const result = data?.answer;
-      setAnswer(result || "No response from Gemini.");
       onResponse(result || "No response from Gemini.");
     } catch (err) {
       console.error("Gemini Chat error:", err);
-      setAnswer("Error fetching from server.");
       onResponse("Error fetching from server.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSend = () => {
-    queryGemini();
+  // Manual trigger from parent via hidden button
+  const handleTrigger = () => {
+    queryGemini(inputText);
   };
 
   return (
-    <div className="chatbot-wrapper">
-      <div className="chatbot-input-area">
-        <input
-          type="text"
-          value={inputText}
-          placeholder="Ask me anything..."
-          onChange={(e) => setInputText(e.target.value)}
-        />
-        <button onClick={handleSend}>Send</button>
-      </div>
-
-      <SpeechToText onResult={(text) => {
-        setInputText(text);
-        onSpeech(text);
-      }} lang="en-US" />
+    <>
+      <SpeechToText onResult={onSpeech} lang="en-US" />
 
       {loading && (
         <div className="loader-container">
@@ -60,13 +43,8 @@ export default function ChatBot({ onResponse, onSpeech }) {
         </div>
       )}
 
-      {answer && (
-        <div className="chatbot-answer">
-          <strong>Answer:</strong>
-          <p>{answer}</p>
-        </div>
-      )}
-    </div>
+      <button id="trigger-bot" onClick={handleTrigger} style={{ display: "none" }} />
+    </>
   );
 }
 
