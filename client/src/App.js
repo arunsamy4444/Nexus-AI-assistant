@@ -15,13 +15,13 @@ export default function App() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("qna");
   const speechRef = useRef(null);
-  const [introSpoken, setIntroSpoken] = useState(false);
+//   const [introSpoken, setIntroSpoken] = useState(false);
 
-const speakIntro = () => {
-  if (introSpoken) return;
-  speak("Hi, I'm Nexus – your AI voice assistant.");
-  setIntroSpoken(true);
-};
+// const speakIntro = () => {
+//   if (introSpoken) return;
+//   speak("Hi, I'm Nexus – your AI voice assistant.");
+//   setIntroSpoken(true);
+// };
 
   const speak = (text) => {
     if (!window.speechSynthesis || !text) return;
@@ -119,18 +119,18 @@ const speakIntro = () => {
 };
 
 
-  useEffect(() => {
-  const handleClickOnce = () => {
-    speakIntro();
-    window.removeEventListener("click", handleClickOnce);
-  };
+//   useEffect(() => {
+//   const handleClickOnce = () => {
+//     speakIntro();
+//     window.removeEventListener("click", handleClickOnce);
+//   };
 
-  window.addEventListener("click", handleClickOnce);
+//   window.addEventListener("click", handleClickOnce);
 
-  return () => {
-    window.removeEventListener("click", handleClickOnce);
-  };
-}, [introSpoken]);
+//   return () => {
+//     window.removeEventListener("click", handleClickOnce);
+//   };
+// }, [introSpoken]);
 
   return (
     <div className="container">
