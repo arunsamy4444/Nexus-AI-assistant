@@ -15,6 +15,13 @@ export default function App() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("qna");
   const speechRef = useRef(null);
+  const [introSpoken, setIntroSpoken] = useState(false);
+
+const speakIntro = () => {
+  if (introSpoken) return;
+  speak("Hi, I'm Nexus – your AI voice assistant.");
+  setIntroSpoken(true);
+};
 
   const speak = (text) => {
     if (!window.speechSynthesis || !text) return;
