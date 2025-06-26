@@ -21,7 +21,7 @@ export default function App() {
   const speakIntro = () => {
   if (introSpoken) return; // prevent repeat
 
-  speak("Hi, I'm Nexus – your AI voice assistant. Ask me anything, anytime.");
+  speak("Hi, I'm Nexus – your AI voice assistant.");
   setIntroSpoken(true);
 };
 
