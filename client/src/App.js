@@ -15,13 +15,26 @@ export default function App() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("qna");
   const speechRef = useRef(null);
-//   const [introSpoken, setIntroSpoken] = useState(false);
+    const [introSpoken, setIntroSpoken] = useState(false); // ✅ Move this above
 
-// const speakIntro = () => {
-//   if (introSpoken) return;
-//   speak("Hi, I'm Nexus – your AI voice assistant.");
-//   setIntroSpoken(true);
-// };
+  const speakIntro = () => {  // ✅ Move this above
+    if (introSpoken) return;
+    speak("Hi, I'm Nexus – your AI voice assistant.");
+    setIntroSpoken(true);
+  };
+
+  useEffect(() => {
+    const handleClickOnce = () => {
+      speakIntro();
+      window.removeEventListener("click", handleClickOnce);
+    };
+
+    window.addEventListener("click", handleClickOnce);
+
+    return () => {
+      window.removeEventListener("click", handleClickOnce);
+    };
+  }, [introSpoken]); // ✅ Now 'introSpoken' is already defined
 
   const speak = (text) => {
     if (!window.speechSynthesis || !text) return;
@@ -119,18 +132,6 @@ export default function App() {
 };
 
 
-//   useEffect(() => {
-//   const handleClickOnce = () => {
-//     speakIntro();
-//     window.removeEventListener("click", handleClickOnce);
-//   };
-
-//   window.addEventListener("click", handleClickOnce);
-
-//   return () => {
-//     window.removeEventListener("click", handleClickOnce);
-//   };
-// }, [introSpoken]);
 
   return (
     <div className="container">
