@@ -113,25 +113,50 @@ cron.schedule("* * * * *", () => {
   }
 });
 
+app.post("/gemini-chat", async (req, res) => {
+  const { query } = req.body;
+  if (!query) return res.status(400).json({ error: "No question provided" });
 
+  try {
+    const response = await axios.post(GEMINI_API_URL, {
+      model: "gemini-1.5-flash",
+      prompt: {
+        messages: [
+          {
+            author: "user",
+            content: {
+              text: query
+            }
+          }
+        ]
+      }
+    });
 
-// Your main college Q/A endpoint using Gemini API
+    const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
+    res.json({ answer });
+  } catch (error) {
+    console.error("Gemini Chat error:", error.response?.data || error.message);
+    res.status(500).json({ error: "Failed to get answer from Gemini" });
+  }
+});
+
 app.post("/college-ask", async (req, res) => {
   const { query } = req.body;
   if (!query) return res.status(400).json({ error: "No question provided" });
 
   try {
     const response = await axios.post(GEMINI_API_URL, {
-      contents: [
-        {
-          role: "user",
-          parts: [
-            {
-              text: `Use the following college document to answer this question:\n\n${collegeData}\n\nUser asked: ${query}`,
-            },
-          ],
-        },
-      ],
+      model: "gemini-1.5-flash",
+      prompt: {
+        messages: [
+          {
+            author: "user",
+            content: {
+              text: `Answer the following question using the college document below:\n\n${collegeData}\n\nUser asked: ${query}`
+            }
+          }
+        ]
+      }
     });
 
     const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
