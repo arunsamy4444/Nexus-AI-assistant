@@ -7,10 +7,19 @@ const axios = require("axios");  // <--- Add this line!
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
 require("dotenv").config();
-
 const app = express();
-const GEMINI_API_KEY = "AIzaSyDeoiV5qIDYoRGOB4bVG4JDKi0GVInxpNg";
+const PORT = process.env.PORT || 5000;
+
+// ✅ Gemini key from env (SECURE)
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+
+app.use(cors({
+  origin: "https://your-frontend-name.vercel.app", // change this
+  credentials: true
+}));
+app.use(express.json());
 
 
 // Load and parse PDF text at server start
@@ -26,8 +35,7 @@ let collegeData = "";
   }
 })();
 
-app.use(cors());
-app.use(express.json());
+
 
 
 const reminders = []; // Use DB in production
@@ -134,6 +142,7 @@ app.post("/college-ask", async (req, res) => {
 });
 
 
-app.listen(5000, () => console.log("Reminder API running on port 5000"));
+
+app.listen(PORT, () => console.log(`Reminder API running on port ${PORT}`));
 
 
