@@ -139,24 +139,26 @@ app.post("/gemini-chat", async (req, res) => {
   }
 });
 
-
 app.post("/college-ask", async (req, res) => {
   const { query } = req.body;
   if (!query) return res.status(400).json({ error: "No question provided" });
 
+  if (!collegeData) {
+    return res.status(500).json({ error: "College data not loaded" });
+  }
+
   try {
     const response = await axios.post(GEMINI_API_URL, {
-      model: "gemini-1.5-flash",
-      prompt: {
-        messages: [
-          {
-            author: "user",
-            content: {
-              text: `Answer the following question using the college document below:\n\n${collegeData}\n\nUser asked: ${query}`
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text: `You are a helpful assistant. Use the college document content to answer the following question.\n\nCollege Info:\n${collegeData}\n\nUser's Question: ${query}`
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
     });
 
     const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
@@ -166,6 +168,7 @@ app.post("/college-ask", async (req, res) => {
     res.status(500).json({ error: "Failed to get answer from Gemini" });
   }
 });
+
 
 
 
