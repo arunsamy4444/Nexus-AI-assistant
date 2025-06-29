@@ -22,7 +22,8 @@ A full-stack AI assistant app that answers user questions using the Gemini API a
 ## 📁 Folder Structure
 - `/client` – React frontend  
 - `/server` – Express backend  
-- `/uploads` – PDF/JSON files for document-based Q&A
+- `/server/pdfdata.js` – Static PDF-based Q&A  
+- `/server/jsondata.js` – Static JSON-based Q&A
 
 ## 🧑‍💻 Author
 **Arun Samy V**  
