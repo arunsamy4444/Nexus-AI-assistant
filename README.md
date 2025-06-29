@@ -6,7 +6,7 @@ A full-stack AI assistant app that answers user questions using the Gemini API a
 [https://nexus-ai-assistant-nine.vercel.app](https://nexus-ai-assistant-nine.vercel.app)
 
 ## 🧪 Tech Stack
-- React, Tailwind CSS, Vite  
+- React,CSS 
 - Node.js, Express, MongoDB  
 - Gemini API, Twilio API (WhatsApp)  
 - Text-to-Speech, Cron Jobs
@@ -22,8 +22,9 @@ A full-stack AI assistant app that answers user questions using the Gemini API a
 ## 📁 Folder Structure
 - `/client` – React frontend  
 - `/server` – Express backend  
-- `/server/pdfdata.js` – Static PDF-based Q&A  
-- `/server/jsondata.js` – Static JSON-based Q&A
+- `/server/pdf/clg_info.pdf` – Static PDF used for document-based Q&A
+- `/server/hospitalData.json` – JSON data for structured Gemini-based Q&A
+- `/server/app.js` – Main backend logic (routes, API handling)
 
 ## 🧑‍💻 Author
 **Arun Samy V**  
