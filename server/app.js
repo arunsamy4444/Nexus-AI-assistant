@@ -14,15 +14,12 @@ const PORT = process.env.PORT || 5000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
-
 app.use(cors({
   origin: "https://nexus-ai-assistant-nine.vercel.app", // ✅ actual deployed frontend URL
   credentials: true
 }));
 
 app.use(express.json());
-
-
 // Load and parse PDF text at server start
 let collegeData = "";
 (async () => {
@@ -35,9 +32,6 @@ let collegeData = "";
     console.error("❌ Failed to load College PDF:", err);
   }
 })();
-
-
-
 
 const reminders = []; // Use DB in production
 
@@ -70,10 +64,6 @@ app.post("/ask", (req, res) => {
   const answer = findAnswer(question);
   res.json({ answer });
 });
-
-
-
-
 
 app.post("/set-reminder", (req, res) => {
   const { phone, date, time, reason } = req.body;
@@ -113,23 +103,37 @@ cron.schedule("* * * * *", () => {
   }
 });
 
+
+// ✅ Gemini Chat Limit (Global: 5/day)
+let geminiDailyUsageCount = 0;
+let collegeDailyUsageCount = 0;
+
+cron.schedule("0 0 * * *", () => {
+  geminiDailyUsageCount = 0;
+  collegeDailyUsageCount = 0;
+  console.log("🔁 Daily API usage counters reset");
+});
+
+// ✅ API: Gemini Chat (5/day limit)
 app.post("/gemini-chat", async (req, res) => {
   const { query } = req.body;
   if (!query) return res.status(400).json({ error: "No question provided" });
+
+  if (geminiDailyUsageCount >= 5) {
+    return res.status(429).json({ error: "🚫 Daily Gemini API limit (5) reached. Try again tomorrow." });
+  }
 
   try {
     const response = await axios.post(GEMINI_API_URL, {
       contents: [
         {
           role: "user",
-          parts: [
-            {
-              text: query
-            }
-          ]
+          parts: [{ text: query }]
         }
       ]
     });
+
+    geminiDailyUsageCount++;
 
     const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
     res.json({ answer });
@@ -139,12 +143,17 @@ app.post("/gemini-chat", async (req, res) => {
   }
 });
 
+// ✅ College Ask endpoint (limit: 5/day)
 app.post("/college-ask", async (req, res) => {
   const { query } = req.body;
   if (!query) return res.status(400).json({ error: "No question provided" });
 
   if (!collegeData) {
     return res.status(500).json({ error: "College data not loaded" });
+  }
+
+  if (collegeDailyUsageCount >= 5) {
+    return res.status(429).json({ error: "🚫 Daily College Ask limit (5) reached. Try again tomorrow." });
   }
 
   try {
@@ -161,6 +170,8 @@ app.post("/college-ask", async (req, res) => {
       ]
     });
 
+    collegeDailyUsageCount++;
+
     const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
     res.json({ answer });
   } catch (error) {
@@ -168,6 +179,65 @@ app.post("/college-ask", async (req, res) => {
     res.status(500).json({ error: "Failed to get answer from Gemini" });
   }
 });
+
+
+
+
+// app.post("/gemini-chat", async (req, res) => {
+//   const { query } = req.body;
+//   if (!query) return res.status(400).json({ error: "No question provided" });
+
+//   try {
+//     const response = await axios.post(GEMINI_API_URL, {
+//       contents: [
+//         {
+//           role: "user",
+//           parts: [
+//             {
+//               text: query
+//             }
+//           ]
+//         }
+//       ]
+//     });
+
+//     const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
+//     res.json({ answer });
+//   } catch (error) {
+//     console.error("Gemini Chat error:", error.response?.data || error.message);
+//     res.status(500).json({ error: "Failed to get answer from Gemini" });
+//   }
+// });
+
+// app.post("/college-ask", async (req, res) => {
+//   const { query } = req.body;
+  // if (!query) return res.status(400).json({ error: "No question provided" });
+
+  // if (!collegeData) {
+  //   return res.status(500).json({ error: "College data not loaded" });
+  // }
+
+  // try {
+  //   const response = await axios.post(GEMINI_API_URL, {
+  //     contents: [
+  //       {
+  //         role: "user",
+  //         parts: [
+  //           {
+  //             text: `You are a helpful assistant. Use the college document content to answer the following question.\n\nCollege Info:\n${collegeData}\n\nUser's Question: ${query}`
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   });
+
+  //   const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
+  //   res.json({ answer });
+//   } catch (error) {
+//     console.error("Gemini API error:", error.response?.data || error.message);
+//     res.status(500).json({ error: "Failed to get answer from Gemini" });
+//   }
+// });
 
 
 
