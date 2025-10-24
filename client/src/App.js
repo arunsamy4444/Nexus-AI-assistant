@@ -1,191 +1,322 @@
-import { useState, useEffect, useRef } from "react";
-import SpeechToText from "./components/SpeechToText";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { supabase } from './supabaseClient';
 import ChatBot from "./components/ChatBot";
+import TelegramChat from "./components/TelegramChat";
 import ReminderForm from "./components/ReminderForm";
-import HospitalQA from "./components/HospitalQA";
-import VoiceCommandListener from "./components/VoiceCommandListener";
-import VoiceReminderScheduler from "./components/VoiceReminderScheduler";
-import CollegeAsk from "./components/CollegeAsk";
-import "./App.css";
+import History from "./components/History";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import './App.css';
 
-export default function App() {
-  const [query, setQuery] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [lang, setLang] = useState("en-US");
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("qna");
-  const speechRef = useRef(null);
+// Auth Navigation Component
+function AuthNavigation({ user, onLogin, onLogout }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const speak = (text) => {
-    if (!window.speechSynthesis || !text) return;
-
-    const speakNow = () => {
-      const utterance = new SpeechSynthesisUtterance(text);
-      speechRef.current = utterance;
-
-      const voices = window.speechSynthesis.getVoices();
-      const voiceMatch = voices.find((v) => v.lang.startsWith(lang.split("-")[0]));
-
-      const femaleVoice =
-        voices.find(
-          (v) =>
-            v.lang.startsWith(lang.split("-")[0]) &&
-            /female|woman|zira|susan/i.test(v.name)
-        ) || voiceMatch;
-
-      if (femaleVoice) utterance.voice = femaleVoice;
-      utterance.lang = lang;
-      window.speechSynthesis.speak(utterance);
-    };
-
-    if (window.speechSynthesis.getVoices().length === 0) {
-      window.speechSynthesis.onvoiceschanged = () => speakNow();
-    } else {
-      speakNow();
-    }
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
-  const stopSpeaking = () => {
-    if (window.speechSynthesis && window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-    }
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
-  const handleSpeechResult = (text) => {
-    setQuery(text);
+  const isActive = (path) => {
+    return location.pathname === path;
   };
 
-  const handleAnswer = (res) => {
-    const english = typeof res === "string" ? res : res.english;
-    const tamil = typeof res === "object" && res.tamil;
-
-    setAnswer(english);
-    speak(tamil || english);
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    onLogout();
+    closeMenu();
   };
 
-  const handleReminderSubmit = async (formData) => {
-    try {
-      const res = await fetch("http://localhost:5000/set-reminder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) throw new Error("Failed to set reminder");
-      alert("Reminder set successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to set reminder.");
-    }
+  const handleSwitchToLogin = () => {
+    navigate('/login');
   };
-
- const handleVoiceCommand = (command) => {
-  const normalized = command.toLowerCase();
-  console.log("🎙️ Voice command received:", command);
-
-  if ((normalized.includes("chatbot") || normalized.includes("gemini")) && activeTab !== "qna") {
-    setActiveTab("qna");
-    speak("Feature switched to chatbot");
-  } else if (normalized.includes("hospital") && activeTab !== "hospital") {
-    setActiveTab("hospital");
-    speak("Feature switched to hospital");
-  } else if (normalized.includes("reminder") && activeTab !== "reminder") {
-    setActiveTab("reminder");
-    speak("Feature switched to reminder");
-  } else if ((normalized.includes("college") || normalized.includes("college question")) && activeTab !== "college") {
-    setActiveTab("college");
-    speak("Feature switched to college question and answer");
-  } else if ((normalized.includes("information") || normalized.includes("info")) && activeTab !== "info") {
-    setActiveTab("info");
-    speak("Feature switched to information mode. What question do you want to ask, boss?");
-  } else if (
-    normalized.includes("chatbot") ||
-    normalized.includes("hospital") ||
-    normalized.includes("reminder") ||
-    normalized.includes("college") ||
-    normalized.includes("info")
-  ) {
-    console.log("🚫 Tab already active. Skip speaking.");
-  } else {
-    speak("Sorry, I didn't understand the command.");
-  }
-};
 
   return (
-    <div className="container">
-      <h1>Nexus AI Voice Assistant</h1>
-      <p>Say “Nexus” then a command: chatbot, hospital, reminder, etc.</p>
-
-      <VoiceCommandListener onCommandDetected={handleVoiceCommand} />
-
-      <div className="mobile-nav-toggle">
-        <button className="hamburger-toggle" onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}>
-          ☰
-        </button>
-      </div>
-
-      <nav className={`nav ${isMobileNavOpen ? "open" : "closed"}`}>
-        <button className={activeTab === "qna" ? "active" : ""} onClick={() => setActiveTab("qna")}>🤖 Q&A Chatbot</button>
-        <button className={activeTab === "hospital" ? "active" : ""} onClick={() => setActiveTab("hospital")}>🏥 Hospital Q&A</button>
-        <button className={activeTab === "reminder" ? "active" : ""} onClick={() => setActiveTab("reminder")}>📅 Set Reminder</button>
-        <button className={activeTab === "voiceReminder" ? "active" : ""} onClick={() => setActiveTab("voiceReminder")}>🎙️ Voice Reminder</button>
-        <button className={activeTab === "college" ? "active" : ""} onClick={() => setActiveTab("college")}>🎓 College Q&A</button>
-      </nav>
-
-      <div className="intro">
-        <h2>NEXUS AI: Your English Voice Assistant</h2>
-        <p>🎙️ Speak in English to get answers instantly.</p>
-        <p>📢 Get voice responses, translated text, and set smart reminders!</p>
-      </div>
-
-      {activeTab === "qna" && (
-        <div className="chatbot-section">
-          <div style={{ display: "flex", gap: "8px", marginBottom: "10px" }}>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ask something..."
-              style={{ flex: 1, padding: 8 }}
-            />
-            <button
-              onClick={() => {
-                setAnswer("");
-                if (query.trim()) {
-                  handleAnswer("");
-                  setTimeout(() => {
-                    document.getElementById("trigger-bot")?.click();
-                  }, 100);
-                }
-              }}
-            >
-              Send
-            </button>
-            <button
-              style={{ backgroundColor: "red", color: "white", padding: "8px" }}
-              onClick={stopSpeaking}
-            >
-              🚓 Stop
-            </button>
+    <>
+      <div className="network-bg"></div>
+      <div className="network-pattern"></div>
+      
+      <div className="container">
+        <div className="nav-wrapper">
+          <div className="nav-brand">
+            <h1>Nexus</h1>
+            {user && (
+              <div className="user-badge">
+                <span className="user-avatar">👤</span>
+                <span className="user-email">{user.email}</span>
+              </div>
+            )}
           </div>
+          
+          {/* Desktop Navigation */}
+          <nav className="nav-desktop">
+            {user ? (
+              <>
+                <Link 
+                  to="/" 
+                  className={`nav-button ${isActive('/') ? 'active' : 'secondary'}`}
+                >
+                  ChatBot
+                </Link>
+                <Link 
+                  to="/telegram" 
+                  className={`nav-button ${isActive('/telegram') ? 'active' : 'secondary'}`}
+                >
+                  Telegram
+                </Link>
+                <Link 
+                  to="/reminders" 
+                  className={`nav-button ${isActive('/reminders') ? 'active' : 'secondary'}`}
+                >
+                  Reminders
+                </Link>
+                <Link 
+                  to="/history" 
+                  className={`nav-button ${isActive('/history') ? 'active' : 'secondary'}`}
+                >
+                  <span>📊</span>
+                  History
+                </Link>
+                <button 
+                  onClick={handleLogout}
+                  className="nav-button danger"
+                >
+                  <span>🚪</span>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link 
+                  to="/login" 
+                  className={`nav-button ${isActive('/login') ? 'active' : 'secondary'}`}
+                >
+                  <span>🔑</span>
+                  Login
+                </Link>
+                <Link 
+                  to="/signup" 
+                  className={`nav-button ${isActive('/signup') ? 'active' : 'primary'}`}
+                >
+                  <span>✨</span>
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </nav>
 
-          <ChatBot inputText={query} onResponse={handleAnswer} onSpeech={handleSpeechResult} />
-          <button id="trigger-bot" style={{ display: "none" }} />
-
-          <div style={{ marginTop: 20 }}>
-            <strong>Answer:</strong>
-            <p>{answer}</p>
-          </div>
+          {/* Mobile Navigation */}
+          <nav className="nav-mobile">
+            <button 
+              className="hamburger-toggle"
+              onClick={toggleMenu}
+            >
+              ☰
+            </button>
+            
+            <div className={`mobile-nav-menu ${isMenuOpen ? 'open' : ''}`}>
+              {user ? (
+                <>
+                  <Link 
+                    to="/" 
+                    className={`nav-button ${isActive('/') ? 'active' : 'secondary'}`} 
+                    onClick={closeMenu}
+                  >
+                    ChatBot
+                  </Link>
+                  <Link 
+                    to="/telegram" 
+                    className={`nav-button ${isActive('/telegram') ? 'active' : 'secondary'}`} 
+                    onClick={closeMenu}
+                  >
+                    Telegram
+                  </Link>
+                  <Link 
+                    to="/reminders" 
+                    className={`nav-button ${isActive('/reminders') ? 'active' : 'secondary'}`} 
+                    onClick={closeMenu}
+                  >
+                    Reminders
+                  </Link>
+                  <Link 
+                    to="/history" 
+                    className={`nav-button ${isActive('/history') ? 'active' : 'secondary'}`} 
+                    onClick={closeMenu}
+                  >
+                    <span>📊</span>
+                    History
+                  </Link>
+                  <button 
+                    onClick={handleLogout}
+                    className="nav-button danger"
+                  >
+                    <span>🚪</span>
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link 
+                    to="/login" 
+                    className={`nav-button ${isActive('/login') ? 'active' : 'secondary'}`} 
+                    onClick={closeMenu}
+                  >
+                    <span>🔑</span>
+                    Login
+                  </Link>
+                  <Link 
+                    to="/signup" 
+                    className={`nav-button ${isActive('/signup') ? 'active' : 'primary'}`} 
+                    onClick={closeMenu}
+                  >
+                    <span>✨</span>
+                    Sign Up
+                  </Link>
+                </>
+              )}
+            </div>
+          </nav>
         </div>
-      )}
 
-      {activeTab === "hospital" && <div className="hospital-section"><HospitalQA lang={lang} /></div>}
-      {activeTab === "reminder" && <div className="reminder-section"><ReminderForm onSubmit={handleReminderSubmit} /></div>}
-      {activeTab === "voiceReminder" && <div className="voice-reminder-section"><VoiceReminderScheduler /></div>}
-      {activeTab === "college" && <div className="college-section"><CollegeAsk /></div>}
-
-     
-    </div>
+        <div className="page-container">
+          <Routes>
+            {/* Public Routes */}
+            <Route 
+              path="/login" 
+              element={
+                user ? <Navigate to="/" /> : <Login onLogin={onLogin} />
+              } 
+            />
+            <Route 
+              path="/signup" 
+              element={
+                user ? <Navigate to="/" /> : <Signup onSwitchToLogin={handleSwitchToLogin} />
+              } 
+            />
+            
+            {/* Protected Routes */}
+            <Route 
+              path="/" 
+              element={
+                user ? (
+                  <div className="section chatbot-section">
+                    <ChatBot />
+                  </div>
+                ) : (
+                  <Navigate to="/login" />
+                )
+              } 
+            />
+            <Route 
+              path="/telegram" 
+              element={
+                user ? (
+                  <div className="section">
+                    <TelegramChat />
+                  </div>
+                ) : (
+                  <Navigate to="/login" />
+                )
+              } 
+            />
+            <Route 
+              path="/reminders" 
+              element={
+                user ? (
+                  <div className="section">
+                    <ReminderForm />
+                  </div>
+                ) : (
+                  <Navigate to="/login" />
+                )
+              } 
+            />
+            <Route 
+              path="/history" 
+              element={
+                user ? (
+                  <div className="section">
+                    <History />
+                  </div>
+                ) : (
+                  <Navigate to="/login" />
+                )
+              } 
+            />
+            
+            {/* Fallback route */}
+            <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
+          </Routes>
+        </div>
+      </div>
+    </>
   );
 }
 
+// Main App Component
+function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Check for active session on component mount
+  useEffect(() => {
+    getSession();
+    
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user || null);
+        setLoading(false);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const getSession = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
+    } catch (error) {
+      console.error('Error getting session:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="network-bg"></div>
+        <div className="network-pattern"></div>
+        <div className="loading-container">
+          <div className="loading-spinner-large"></div>
+          <h2>Loading Nexus...</h2>
+          <p>Preparing your AI assistant</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Router>
+      <AuthNavigation user={user} onLogin={handleLogin} onLogout={handleLogout} />
+    </Router>
+  );
+}
+
+export default App;
