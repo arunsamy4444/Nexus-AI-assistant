@@ -7,6 +7,7 @@ const axios = require("axios");
 
 dotenv.config();
 const app = express();
+<<<<<<< HEAD
 
 // ✅ CORS setup — allow localhost + deployed frontend
 app.use(cors({
@@ -36,14 +37,47 @@ let chatHistory = [];
 
 // ✅ Chat endpoint for AI responses
 app.post("/api/chat", async (req, res) => {
+=======
+const PORT = process.env.PORT || 5000;
+
+// ✅ Gemini key from env (SECURE)
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+app.use(cors({
+  origin: "https://nexus-ai-assistant-nine.vercel.app", // ✅ actual deployed frontend URL
+  credentials: true
+}));
+
+app.use(express.json());
+// Load and parse PDF text at server start
+let collegeData = "";
+(async () => {
+>>>>>>> a3eab94dfb7207fe873bfe6de384c64e43175d9e
   try {
     const { message, userId } = req.body;
 
+<<<<<<< HEAD
     if (!message) {
       return res.status(400).json({ 
         success: false, 
         message: "Message is required" 
       });
+=======
+const reminders = []; // Use DB in production
+
+const twilioClient = twilio(
+  process.env.TWILIO_SID,
+  process.env.TWILIO_AUTH
+);
+
+
+function findAnswer(question) {
+  question = question.toLowerCase().trim();
+  for (const qa of hospitalData) {
+    if (qa.question.toLowerCase() === question) {
+      return qa.answer;
+>>>>>>> a3eab94dfb7207fe873bfe6de384c64e43175d9e
     }
 
     // For now, using a simple response system
@@ -70,12 +104,132 @@ app.post("/api/chat", async (req, res) => {
       }
     }
 
+<<<<<<< HEAD
     res.json({
       success: true,
       message: aiResponse,
       content: aiResponse
     });
 
+=======
+app.post("/ask", (req, res) => {
+  const { question } = req.body;
+  if (!question) return res.status(400).json({ error: "No question provided" });
+
+  const answer = findAnswer(question);
+  res.json({ answer });
+});
+
+app.post("/set-reminder", (req, res) => {
+  const { phone, date, time, reason } = req.body;
+
+  if (!phone || !date || !time || !reason) {
+    return res.status(400).json({ success: false, message: "Missing fields" });
+  }
+
+  if (!phone.startsWith("+")) {
+    return res.status(400).json({ success: false, message: "Phone number must start with country code e.g., +91" });
+  }
+
+  reminders.push({ phone, date, time, reason });
+  res.json({ success: true, message: "Reminder set" });
+});
+
+// Run every minute
+cron.schedule("* * * * *", () => {
+  const now = new Date();
+  const currentDate = now.toISOString().split("T")[0]; // yyyy-mm-dd
+  const currentTime = now.toTimeString().slice(0, 5);  // HH:MM (24h format)
+
+  for (let i = reminders.length - 1; i >= 0; i--) {
+    const reminder = reminders[i];
+    if (reminder.date === currentDate && reminder.time === currentTime) {
+      twilioClient.messages.create({
+        body: `🔔 Reminder: ${reminder.reason}`,
+        from: "whatsapp:+14155238886",   // Twilio WhatsApp sandbox number
+        to: `whatsapp:${reminder.phone}` // Recipient's WhatsApp number in E.164 format
+      })
+      .then(() => {
+        console.log(`WhatsApp reminder sent to ${reminder.phone}`);
+        reminders.splice(i, 1); // Remove after sending
+      })
+      .catch((err) => console.error("Error sending WhatsApp message:", err));
+    }
+  }
+});
+
+
+// ✅ Gemini Chat Limit (Global: 5/day)
+let geminiDailyUsageCount = 0;
+let collegeDailyUsageCount = 0;
+
+cron.schedule("0 0 * * *", () => {
+  geminiDailyUsageCount = 0;
+  collegeDailyUsageCount = 0;
+  console.log("🔁 Daily API usage counters reset");
+});
+
+// ✅ API: Gemini Chat (5/day limit)
+app.post("/gemini-chat", async (req, res) => {
+  const { query } = req.body;
+  if (!query) return res.status(400).json({ error: "No question provided" });
+
+  if (geminiDailyUsageCount >= 5) {
+    return res.status(429).json({ error: "🚫 Daily Gemini API limit (5) reached. Try again tomorrow." });
+  }
+
+  try {
+    const response = await axios.post(GEMINI_API_URL, {
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: query }]
+        }
+      ]
+    });
+
+    geminiDailyUsageCount++;
+
+    const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
+    res.json({ answer });
+  } catch (error) {
+    console.error("Gemini Chat error:", error.response?.data || error.message);
+    res.status(500).json({ error: "Failed to get answer from Gemini" });
+  }
+});
+
+// ✅ College Ask endpoint (limit: 5/day)
+app.post("/college-ask", async (req, res) => {
+  const { query } = req.body;
+  if (!query) return res.status(400).json({ error: "No question provided" });
+
+  if (!collegeData) {
+    return res.status(500).json({ error: "College data not loaded" });
+  }
+
+  if (collegeDailyUsageCount >= 5) {
+    return res.status(429).json({ error: "🚫 Daily College Ask limit (5) reached. Try again tomorrow." });
+  }
+
+  try {
+    const response = await axios.post(GEMINI_API_URL, {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text: `You are a helpful assistant. Use the college document content to answer the following question.\n\nCollege Info:\n${collegeData}\n\nUser's Question: ${query}`
+            }
+          ]
+        }
+      ]
+    });
+
+    collegeDailyUsageCount++;
+
+    const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
+    res.json({ answer });
+>>>>>>> a3eab94dfb7207fe873bfe6de384c64e43175d9e
   } catch (error) {
     console.error("Chat error:", error);
     res.status(500).json({
@@ -104,6 +258,7 @@ app.get("/api/chat/history", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 // Simple AI response generator (replace with actual AI service)
 async function generateAIResponse(message) {
   const responses = {
@@ -111,6 +266,69 @@ async function generateAIResponse(message) {
     help: "I can help you with information, answer questions, set reminders, and more. Just let me know what you need!",
     default: "I understand you're saying: \"" + message + "\". This is a simulated response. In production, I'd connect to a real AI service like OpenAI or another provider."
   };
+=======
+
+// app.post("/gemini-chat", async (req, res) => {
+//   const { query } = req.body;
+//   if (!query) return res.status(400).json({ error: "No question provided" });
+
+//   try {
+//     const response = await axios.post(GEMINI_API_URL, {
+//       contents: [
+//         {
+//           role: "user",
+//           parts: [
+//             {
+//               text: query
+//             }
+//           ]
+//         }
+//       ]
+//     });
+
+//     const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
+//     res.json({ answer });
+//   } catch (error) {
+//     console.error("Gemini Chat error:", error.response?.data || error.message);
+//     res.status(500).json({ error: "Failed to get answer from Gemini" });
+//   }
+// });
+
+// app.post("/college-ask", async (req, res) => {
+//   const { query } = req.body;
+  // if (!query) return res.status(400).json({ error: "No question provided" });
+
+  // if (!collegeData) {
+  //   return res.status(500).json({ error: "College data not loaded" });
+  // }
+
+  // try {
+  //   const response = await axios.post(GEMINI_API_URL, {
+  //     contents: [
+  //       {
+  //         role: "user",
+  //         parts: [
+  //           {
+  //             text: `You are a helpful assistant. Use the college document content to answer the following question.\n\nCollege Info:\n${collegeData}\n\nUser's Question: ${query}`
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   });
+
+  //   const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no answer.";
+  //   res.json({ answer });
+//   } catch (error) {
+//     console.error("Gemini API error:", error.response?.data || error.message);
+//     res.status(500).json({ error: "Failed to get answer from Gemini" });
+//   }
+// });
+
+
+
+
+app.listen(PORT, () => console.log(`Reminder API running on port ${PORT}`));
+>>>>>>> a3eab94dfb7207fe873bfe6de384c64e43175d9e
 
   const lowerMessage = message.toLowerCase();
   
