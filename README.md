@@ -1,31 +1,72 @@
-# 🧠 Nexus AI Voice Assistant
+Nexus AI Assistant 🤖
+A modern, voice-enabled AI assistant with real-time communication features and smart reminders.
 
-A full-stack AI assistant app that answers user questions using the Gemini API and sends WhatsApp reminders with scheduled onsite alarms.
+✨ Features
+💬 AI Chatbot - Powered by Puter.js with text-to-speech
 
-## 🌐 Live Demo
-[https://nexus-ai-assistant-nine.vercel.app](https://nexus-ai-assistant-nine.vercel.app)
+📱 Telegram Integration - Real messaging with your bot
 
-## 🧪 Tech Stack
-- React,CSS 
-- Node.js, Express, MongoDB  
-- Gemini API, Twilio API (WhatsApp)  
-- Text-to-Speech, Cron Jobs
+⏰ Smart Reminders - Voice alerts and notifications
 
-## ⚙️ Features
-- AI-powered Q&A using Gemini API  
-- Text-to-speech output for answers  
-- WhatsApp reminders sent through Twilio  
-- Onsite alarm notification system via cron jobs  
-- PDF and JSON document-based Q&A (trained docs)  
-- Responsive and animated user interface
+📊 Activity History - Track all your interactions
 
-## 📁 Folder Structure
-- `/client` – React frontend  
-- `/server` – Express backend  
-- `/server/pdf/clg_info.pdf` – Static PDF used for document-based Q&A
-- `/server/hospitalData.json` – JSON data for structured Gemini-based Q&A
-- `/server/app.js` – Main backend logic (routes, API handling)
+🎤 Voice Control - Speak instead of type
 
-## 🧑‍💻 Author
-**Arun Samy V**  
-[Portfolio](https://arunsamy.vercel.app) • [GitHub](https://github.com/arunsamy4444)
+🔐 Secure Auth - User accounts with Supabase
+
+🚀 Quick Start
+Sign Up - Create your account
+
+Enable Microphone - Allow voice input in browser
+
+Start Chatting - Type or speak to the AI
+
+Set Reminders - Get voice notifications
+
+Connect Telegram - Link your messaging
+
+🎯 Use Cases
+Personal Assistant - Daily tasks and information
+
+Health Reminders - Medication and appointment alerts
+
+Team Communication - Telegram group coordination
+
+Learning Companion - AI-powered Q&A
+
+🛠 Tech Stack
+Frontend: React, CSS3, Web Speech API
+
+Backend: Node.js, Express, Telegram Bot API
+
+Database: Supabase (PostgreSQL)
+
+AI: Puter.js AI services
+
+Auth: Supabase Authentication
+
+📱 Responsive Design
+Works perfectly on:
+
+📱 Mobile phones
+
+💻 Tablets
+
+🖥 Desktop computers
+
+🌐 All modern browsers
+
+🎨 Features Highlights
+🎤 Voice input & output
+
+🔔 Smart reminder system
+
+💬 Real Telegram messaging
+
+📈 Activity tracking
+
+🎯 Glass morphism UI
+
+⚡ Fast and responsive
+
+Start your AI journey today! 🚀
