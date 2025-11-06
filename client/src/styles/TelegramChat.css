@@ -14,45 +14,50 @@
   --success: #00ff88;
   --danger: #ff4444;
   --glass-bg: rgba(255, 255, 255, 0.05);
-  --radius: 16px;
-  --blur: 20px;
-  --shadow: 0 8px 32px rgba(0, 240, 255, 0.1);
-  --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.3);
-  --shadow-telegram: 0 8px 32px rgba(0, 136, 204, 0.2);
-  --shadow-telegram-glow: 0 0 20px rgba(0, 136, 204, 0.4);
+  --radius: 20px;
+  --blur: 25px;
+  --shadow: 0 12px 40px rgba(0, 240, 255, 0.15);
+  --shadow-glow: 0 0 30px rgba(0, 240, 255, 0.5);
+  --shadow-telegram: 0 12px 40px rgba(0, 136, 204, 0.2);
+  --shadow-telegram-glow: 0 0 30px rgba(0, 136, 204, 0.5);
+  --font-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
+
+/* Import modern fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Enhanced Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(40px) skewX(5deg);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) skewX(0);
   }
 }
 
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-40px) skewX(-5deg);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) skewX(0);
   }
 }
 
@@ -61,27 +66,29 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 }
 
 @keyframes messageSlide {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(30px) scale(0.9) rotateX(-10deg);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotateX(0);
   }
 }
 
 @keyframes typing {
   0%, 100% {
     opacity: 0.4;
+    transform: scale(0.8);
   }
   50% {
     opacity: 1;
+    transform: scale(1.1);
   }
 }
 
@@ -91,7 +98,7 @@
     box-shadow: var(--shadow-telegram);
   }
   50% {
-    transform: scale(1.02);
+    transform: scale(1.03);
     box-shadow: var(--shadow-telegram-glow);
   }
 }
@@ -99,59 +106,106 @@
 @keyframes connectionStatus {
   0%, 100% {
     background: var(--success);
+    box-shadow: 0 0 20px var(--success);
   }
   50% {
     background: var(--accent);
+    box-shadow: 0 0 30px var(--accent);
   }
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
-  50% {
-    transform: translateY(-5px);
+  33% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(-8px) rotate(-3deg);
   }
 }
 
 @keyframes gradientShift {
   0%, 100% {
     background-position: 0% 50%;
+    transform: scale(1);
+  }
+  25% {
+    background-position: 100% 50%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 50% 100%;
+    transform: scale(1.02);
+  }
+  75% {
+    background-position: 0% 100%;
   }
 }
 
 @keyframes particleFloat {
   0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 0.7;
-  }
-  25% {
-    transform: translate(10px, -15px) rotate(90deg);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translate(-5px, -25px) rotate(180deg);
+    transform: translate(0, 0) rotate(0deg) scale(1);
     opacity: 0.8;
   }
-  75% {
-    transform: translate(-15px, -10px) rotate(270deg);
-    opacity: 0.3;
+  20% {
+    transform: translate(20px, -25px) rotate(72deg) scale(1.1);
+    opacity: 0.6;
+  }
+  40% {
+    transform: translate(-15px, -40px) rotate(144deg) scale(0.9);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-30px, -15px) rotate(216deg) scale(1.2);
+    opacity: 0.4;
+  }
+  80% {
+    transform: translate(10px, -30px) rotate(288deg) scale(0.8);
+    opacity: 0.7;
   }
 }
 
 @keyframes gridMove {
   0% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) rotate(0deg);
   }
   100% {
-    transform: translate(-50px, -50px);
+    transform: translate(-100px, -100px) rotate(1deg);
   }
 }
 
-/* Enhanced Background Elements */
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(5%) translateY(-2%);
+  }
+  50% {
+    transform: translateX(0) translateY(-5%);
+  }
+  75% {
+    transform: translateX(-5%) translateY(-2%);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(200px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(200px) rotate(-360deg);
+  }
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-primary);
+}
+
+/* Advanced Background Elements */
 .telegram-background {
   position: fixed;
   top: 0;
@@ -164,24 +218,33 @@
 
 .background-gradient {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(-45deg, #000000, #0a0a0a, #001122, #002244);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  width: 120%;
+  height: 120%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 136, 204, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 240, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+    linear-gradient(-45deg, #000000, #0a0a0a, #001122, #002244, #000033);
+  background-size: 400% 400%, 200% 200%, 300% 300%, 400% 400%;
+  animation: 
+    gradientShift 20s ease infinite,
+    wave 40s ease-in-out infinite;
+  filter: blur(0.5px);
 }
 
 .background-grid {
   position: absolute;
-  width: 200%;
-  height: 200%;
+  width: 300%;
+  height: 300%;
   background-image: 
-    linear-gradient(rgba(0, 136, 204, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 136, 204, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: gridMove 60s linear infinite;
+    linear-gradient(rgba(0, 136, 204, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 136, 204, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 80s linear infinite;
+  transform-origin: center;
 }
 
+/* Enhanced Particle System */
 .floating-particles {
   position: absolute;
   width: 100%;
@@ -190,23 +253,31 @@
 
 .particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--telegram-blue);
   border-radius: 50%;
-  animation: particleFloat 20s infinite linear;
+  background: var(--telegram-blue);
+  animation: particleFloat 30s infinite ease-in-out;
+  box-shadow: 0 0 20px currentColor;
 }
 
-.particle:nth-child(2n) {
+.particle:nth-child(odd) {
   background: var(--accent);
-  animation-duration: 25s;
+  animation-duration: 35s;
+  animation-delay: -8s;
 }
 
 .particle:nth-child(3n) {
   background: var(--success);
-  animation-duration: 30s;
+  animation-duration: 40s;
+  animation-delay: -12s;
 }
 
+.particle:nth-child(4n) {
+  background: #ff4444;
+  animation-duration: 32s;
+  animation-delay: -15s;
+}
+
+/* Enhanced Floating Shapes */
 .floating-shapes {
   position: absolute;
   width: 100%;
@@ -216,14 +287,16 @@
 .floating-shape {
   position: absolute;
   opacity: 0.1;
-  animation: float 8s ease-in-out infinite;
+  animation: float 12s ease-in-out infinite;
+  filter: blur(1px);
+  box-shadow: 0 0 50px currentColor;
 }
 
 .floating-shape:nth-child(1) {
   top: 20%;
   left: 10%;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background: var(--telegram-blue);
   border-radius: 50%;
   animation-delay: 0s;
@@ -232,29 +305,52 @@
 .floating-shape:nth-child(2) {
   top: 70%;
   left: 80%;
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   background: var(--accent);
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  animation-delay: -2s;
+  animation-delay: -4s;
 }
 
 .floating-shape:nth-child(3) {
   top: 10%;
   left: 80%;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background: var(--success);
   border-radius: 50%;
-  animation-delay: -4s;
+  animation-delay: -8s;
+}
+
+/* Orbital elements */
+.orbital-element {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 136, 204, 0.6);
+  animation: orbit 25s linear infinite;
+  box-shadow: 0 0 15px var(--telegram-blue);
+}
+
+.orbital-element:nth-child(2) {
+  animation-duration: 30s;
+  animation-delay: -8s;
+  background: rgba(0, 240, 255, 0.5);
+}
+
+.orbital-element:nth-child(3) {
+  animation-duration: 35s;
+  animation-delay: -15s;
+  background: rgba(0, 255, 136, 0.4);
 }
 
 /* Enhanced Telegram Chat Container */
 .telegram-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
-  animation: fadeInUp 0.8s ease-out;
+  padding: 3rem;
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   min-height: 100vh;
 }
@@ -262,51 +358,77 @@
 .telegram-layout {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .telegram-header {
   text-align: center;
   margin-bottom: 0;
-  animation: fadeInUp 0.8s ease-out 0.2s both;
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both;
 }
 
 .telegram-title {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--telegram-blue) 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--telegram-blue) 30%, var(--accent) 70%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   position: relative;
   display: inline-block;
-  line-height: 1.2;
+  line-height: 1.1;
+  font-family: var(--font-primary);
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 60px rgba(0, 136, 204, 0.4);
+}
+
+.telegram-title::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(135deg, transparent, var(--telegram-glow), transparent);
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: glow 3s ease-in-out infinite;
 }
 
 .telegram-title::after {
   content: '✈️';
   position: absolute;
-  top: -0.5rem;
-  right: -3rem;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px var(--telegram-glow));
+  top: -0.75rem;
+  right: -3.5rem;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px var(--telegram-glow));
+  text-shadow: 0 0 30px var(--telegram-blue);
 }
 
 .telegram-subtitle {
   color: var(--text-secondary);
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
   font-weight: 300;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  line-height: 1.6;
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 1s ease-out 0.5s both;
 }
 
 .user-session-info {
   text-align: center;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  animation: fadeInUp 0.8s ease-out 0.4s both;
+  font-size: 1rem;
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both;
+  font-family: var(--font-primary);
 }
 
 /* Enhanced Connection Status */
@@ -314,16 +436,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: rgba(0, 136, 204, 0.1);
-  border: 1px solid rgba(0, 136, 204, 0.2);
+  gap: 1.25rem;
+  padding: 1.5rem 2rem;
+  background: rgba(0, 136, 204, 0.15);
+  border: 1px solid rgba(0, 136, 204, 0.25);
   border-radius: var(--radius);
-  margin-bottom: 2rem;
-  animation: fadeInUp 0.6s ease-out 0.6s both;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.6s both;
   backdrop-filter: blur(var(--blur));
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-telegram);
 }
 
 .connection-status::before {
@@ -333,8 +456,8 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: left 0.6s ease;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .connection-status:hover::before {
@@ -342,18 +465,33 @@
 }
 
 .status-dot {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--success);
   animation: connectionStatus 2s ease-in-out infinite;
-  box-shadow: 0 0 10px var(--success);
+  position: relative;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.4;
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .status-text {
   color: var(--text-primary);
-  font-weight: 600;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-weight: 700;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
 }
 
 /* Enhanced Input Section */
@@ -361,11 +499,13 @@
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  padding: clamp(2rem, 4vw, 3rem);
-  border: 1px solid rgba(0, 136, 204, 0.1);
-  box-shadow: var(--shadow-telegram);
-  margin-bottom: 2rem;
-  animation: slideInRight 0.6s ease-out 0.8s both;
+  padding: clamp(2.5rem, 5vw, 3.5rem);
+  border: 1px solid rgba(0, 136, 204, 0.2);
+  box-shadow: 
+    var(--shadow-telegram),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin-bottom: 2.5rem;
+  animation: slideInRight 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.8s both;
   position: relative;
   overflow: hidden;
 }
@@ -377,79 +517,97 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-  transition: left 0.6s ease;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .telegram-input-section:hover::before {
   left: 100%;
 }
 
+.telegram-input-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--telegram-blue), transparent);
+  animation: glow 3s ease-in-out infinite;
+}
+
 .input-group {
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
 }
 
 .input-label {
   display: block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   color: var(--text-primary);
   font-weight: 600;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-  transition: all 0.3s ease;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
 }
 
 .telegram-input {
   width: 100%;
-  padding: clamp(1.1rem, 3vw, 1.3rem) clamp(1.3rem, 3vw, 1.7rem);
+  padding: clamp(1.25rem, 4vw, 1.6rem) clamp(1.5rem, 4vw, 2rem);
   background: rgba(0, 0, 0, 0.4);
-  border: 2px solid rgba(0, 136, 204, 0.15);
+  border: 2px solid rgba(0, 136, 204, 0.2);
   border-radius: var(--radius);
   color: var(--text-primary);
-  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  font-size: clamp(1rem, 3vw, 1.2rem);
   font-weight: 400;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   outline: none;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
+  font-family: var(--font-primary);
+  box-shadow: var(--shadow-telegram);
 }
 
 .telegram-input:focus {
   border-color: var(--telegram-blue);
   box-shadow: var(--shadow-telegram-glow);
-  transform: translateY(-2px);
+  transform: translateY(-5px) scale(1.02);
   background: rgba(0, 0, 0, 0.5);
 }
 
 .telegram-input::placeholder {
   color: var(--text-secondary);
   font-weight: 300;
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  font-style: italic;
 }
 
 /* Enhanced Buttons */
 .telegram-buttons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.25rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .telegram-button {
-  padding: clamp(1.1rem, 3vw, 1.3rem) clamp(1.5rem, 4vw, 2rem);
+  padding: clamp(1.25rem, 4vw, 1.6rem) clamp(1.75rem, 5vw, 2.5rem);
   border: none;
   border-radius: var(--radius);
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
-  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.2rem);
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 1rem;
   position: relative;
   overflow: hidden;
-  min-height: 56px;
+  min-height: 70px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
+  font-family: var(--font-primary);
+  box-shadow: var(--shadow-telegram);
 }
 
 .telegram-button::before {
@@ -459,8 +617,8 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .telegram-button:hover::before {
@@ -470,27 +628,26 @@
 .telegram-button.primary {
   background: linear-gradient(135deg, var(--telegram-blue), var(--telegram-blue-hover));
   color: var(--text-primary);
-  box-shadow: var(--shadow-telegram);
 }
 
 .telegram-button.primary:hover {
   background: linear-gradient(135deg, var(--telegram-blue-hover), var(--telegram-blue));
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.05);
   box-shadow: var(--shadow-telegram-glow);
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 .telegram-button.danger {
   background: transparent;
   color: var(--danger);
   border: 1px solid var(--danger);
-  box-shadow: 0 8px 32px rgba(255, 68, 68, 0.1);
+  box-shadow: 0 8px 32px rgba(255, 68, 68, 0.2);
 }
 
 .telegram-button.danger:hover {
-  background: rgba(255, 68, 68, 0.1);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(255, 68, 68, 0.2);
+  background: rgba(255, 68, 68, 0.15);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(255, 68, 68, 0.3);
 }
 
 .telegram-button:disabled {
@@ -503,126 +660,163 @@
 .telegram-button:disabled:hover {
   transform: none !important;
   box-shadow: var(--shadow-telegram) !important;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
 }
 
 /* Enhanced Messages Container */
 .telegram-messages-container {
-  animation: slideInLeft 0.6s ease-out 1s both;
+  animation: slideInLeft 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1s both;
 }
 
 .telegram-messages {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 136, 204, 0.1);
-  padding: clamp(1.5rem, 3vw, 2rem);
-  min-height: 400px;
-  max-height: 600px;
+  border: 1px solid rgba(0, 136, 204, 0.2);
+  padding: clamp(2rem, 4vw, 2.5rem);
+  min-height: 500px;
+  max-height: 700px;
   overflow-y: auto;
-  box-shadow: var(--shadow-telegram);
+  box-shadow: 
+    var(--shadow-telegram),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  position: relative;
+}
+
+.telegram-messages::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--telegram-blue), transparent);
+  animation: glow 3s ease-in-out infinite;
 }
 
 /* Enhanced Individual Messages */
 .message-container {
-  animation: messageSlide 0.5s ease-out;
+  animation: messageSlide 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .message-bubble {
-  padding: clamp(1.25rem, 3vw, 1.75rem);
+  padding: clamp(1.5rem, 4vw, 2rem);
   border-radius: var(--radius);
   position: relative;
-  max-width: 85%;
-  animation: telegramWave 0.6s ease-out;
-  transition: all 0.3s ease;
+  max-width: 80%;
+  animation: telegramWave 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
+  backdrop-filter: blur(10px);
 }
 
 .message-bubble:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px) scale(1.02);
   box-shadow: var(--shadow-telegram-glow);
 }
 
 .message-outgoing {
   background: linear-gradient(135deg, var(--telegram-blue), #0066a4);
   margin-left: auto;
-  border-bottom-right-radius: 8px;
+  border-bottom-right-radius: 12px;
   box-shadow: var(--shadow-telegram);
 }
 
 .message-incoming {
   background: rgba(24, 37, 51, 0.8);
   margin-right: auto;
-  border-bottom-left-radius: 8px;
+  border-bottom-left-radius: 12px;
   box-shadow: var(--shadow);
 }
 
 .message-header {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
-  margin-bottom: 0.875rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 
 .message-avatar {
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.message-avatar::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: conic-gradient(from 0deg, var(--telegram-blue), var(--accent), var(--success), var(--telegram-blue));
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.7;
 }
 
 .message-bubble:hover .message-avatar {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(5deg);
 }
 
 .avatar-outgoing {
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
 .avatar-incoming {
   background: var(--accent);
   color: var(--primary-bg);
-  box-shadow: 0 4px 12px rgba(0, 240, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.4);
 }
 
 .message-sender {
-  font-weight: 700;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-weight: 800;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
 }
 
 .sender-outgoing {
   color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .sender-incoming {
   color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .message-content {
   color: var(--text-primary);
-  line-height: 1.6;
-  font-size: clamp(1rem, 2.5vw, 1.05rem);
+  line-height: 1.7;
+  font-size: clamp(1.05rem, 3vw, 1.15rem);
   word-wrap: break-word;
   overflow-wrap: break-word;
+  font-family: var(--font-primary);
 }
 
 .message-time {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85rem;
-  margin-top: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-top: 1rem;
   text-align: right;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
 }
 
 .delete-message-btn {
@@ -630,27 +824,45 @@
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  font-size: 1.3rem;
-  width: 32px;
-  height: 32px;
+  font-size: 1.4rem;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   opacity: 0;
   margin-left: auto;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.delete-message-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
 }
 
 .message-bubble:hover .delete-message-btn {
   opacity: 1;
 }
 
+.delete-message-btn:hover::before {
+  left: 100%;
+}
+
 .delete-message-btn:hover {
-  background: rgba(255, 68, 68, 0.1);
+  background: rgba(255, 68, 68, 0.15);
   color: var(--danger);
-  transform: scale(1.1);
+  transform: scale(1.2) rotate(5deg);
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
 }
 
 /* Enhanced Loading Animation */
@@ -658,29 +870,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  padding: 3rem;
+  gap: 1.5rem;
+  padding: 4rem;
   color: var(--text-secondary);
   font-style: italic;
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 136, 204, 0.1);
+  border: 1px solid rgba(0, 136, 204, 0.15);
+  box-shadow: var(--shadow-telegram);
 }
 
 .typing-indicator {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .typing-dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: var(--telegram-blue);
   animation: typing 1.4s ease-in-out infinite both;
-  box-shadow: 0 0 10px var(--telegram-glow);
+  box-shadow: 0 0 15px var(--telegram-glow);
 }
 
 .typing-dot:nth-child(2) {
@@ -694,145 +907,173 @@
 /* Enhanced Empty State */
 .telegram-empty {
   text-align: center;
-  padding: clamp(3rem, 6vw, 5rem) 2rem;
+  padding: clamp(4rem, 8vw, 6rem) 3rem;
   color: var(--text-secondary);
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 136, 204, 0.1);
+  border: 1px solid rgba(0, 136, 204, 0.15);
+  box-shadow: var(--shadow-telegram);
 }
 
 .telegram-empty-icon {
-  font-size: clamp(3rem, 8vw, 5rem);
-  margin-bottom: 1.5rem;
-  opacity: 0.5;
-  animation: float 4s ease-in-out infinite;
+  font-size: clamp(4rem, 10vw, 6rem);
+  margin-bottom: 2rem;
+  opacity: 0.6;
+  animation: float 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px var(--telegram-glow));
 }
 
 .telegram-empty-text {
-  font-size: clamp(1.3rem, 3vw, 1.6rem);
-  margin-bottom: 0.75rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1rem;
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font-primary);
 }
 
 .telegram-empty-subtext {
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
   opacity: 0.7;
-  line-height: 1.5;
-  max-width: 400px;
+  line-height: 1.6;
+  max-width: 450px;
   margin: 0 auto;
+  font-family: var(--font-primary);
 }
 
 /* Enhanced Messages */
 .error-message {
-  background: rgba(255, 68, 68, 0.1);
-  border: 1px solid rgba(255, 68, 68, 0.3);
+  background: rgba(255, 68, 68, 0.15);
+  border: 1px solid rgba(255, 68, 68, 0.4);
   color: #ff6b6b;
-  padding: 1.25rem 1.75rem;
+  padding: 1.5rem 2rem;
   border-radius: var(--radius);
-  margin-bottom: 1.5rem;
-  animation: fadeInUp 0.6s ease-out;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-weight: 600;
+  gap: 1.25rem;
+  font-weight: 700;
   backdrop-filter: blur(var(--blur));
-  box-shadow: 0 4px 20px rgba(255, 68, 68, 0.1);
+  box-shadow: 0 8px 32px rgba(255, 68, 68, 0.2);
+  font-family: var(--font-primary);
+  text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
 }
 
 .success-message {
-  background: rgba(0, 255, 136, 0.1);
-  border: 1px solid rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.15);
+  border: 1px solid rgba(0, 255, 136, 0.4);
   color: var(--success);
-  padding: 1.25rem 1.75rem;
+  padding: 1.5rem 2rem;
   border-radius: var(--radius);
-  margin-bottom: 1.5rem;
-  animation: fadeInUp 0.6s ease-out;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-weight: 600;
+  gap: 1.25rem;
+  font-weight: 700;
   backdrop-filter: blur(var(--blur));
-  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 255, 136, 0.2);
+  font-family: var(--font-primary);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
 .login-reminder {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  background: rgba(0, 240, 255, 0.05);
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(0, 240, 255, 0.08);
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.2);
   text-align: center;
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--shadow);
 }
 
 .login-reminder p {
   margin: 0;
   color: var(--accent);
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .chat-stats {
   text-align: center;
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
   color: var(--text-secondary);
-  font-size: 0.85rem;
-  border-top: 1px solid rgba(0, 240, 255, 0.1);
-  animation: fadeInUp 0.6s ease-out;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(0, 240, 255, 0.15);
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  font-family: var(--font-mono);
+  font-weight: 500;
 }
 
 /* Enhanced Scrollbar Styling */
 .telegram-messages::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 
 .telegram-messages::-webkit-scrollbar-track {
-  background: var(--secondary-bg);
-  border-radius: 4px;
+  background: rgba(0, 136, 204, 0.08);
+  border-radius: 8px;
+  margin: 8px;
 }
 
 .telegram-messages::-webkit-scrollbar-thumb {
-  background: var(--telegram-blue);
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, var(--telegram-blue), var(--telegram-blue-hover));
+  border-radius: 8px;
+  border: 2px solid rgba(0, 136, 204, 0.15);
+  transition: all 0.4s ease;
 }
 
 .telegram-messages::-webkit-scrollbar-thumb:hover {
-  background: var(--telegram-blue-hover);
+  background: linear-gradient(135deg, var(--telegram-blue-hover), var(--telegram-blue));
+  box-shadow: 0 0 20px var(--telegram-glow);
   transform: scale(1.1);
+}
+
+/* Focus states for accessibility */
+.telegram-button:focus-visible,
+.telegram-input:focus-visible,
+.delete-message-btn:focus-visible {
+  outline: 3px solid var(--telegram-blue);
+  outline-offset: 3px;
 }
 
 /* Enhanced Responsive Design */
 @media (max-width: 1024px) {
   .telegram-container {
-    padding: 1.5rem;
+    padding: 2rem;
     max-width: 100%;
   }
   
   .telegram-layout {
-    gap: 1.5rem;
+    gap: 2rem;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
   }
 }
 
 @media (max-width: 768px) {
   .telegram-container {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   
   .telegram-layout {
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
   .telegram-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   
   .telegram-input-section {
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 2rem;
   }
   
   .telegram-buttons {
@@ -840,9 +1081,9 @@
   }
   
   .telegram-messages {
-    padding: 1.5rem;
-    min-height: 350px;
-    max-height: 500px;
+    padding: 2rem 1.5rem;
+    min-height: 450px;
+    max-height: 600px;
   }
   
   .message-bubble {
@@ -856,90 +1097,56 @@
 
 @media (max-width: 480px) {
   .telegram-container {
-    padding: 0.75rem;
+    padding: 1rem;
   }
   
   .telegram-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
   
   .telegram-subtitle {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   
   .telegram-input-section {
-    padding: 1.5rem 1rem;
+    padding: 2rem 1.5rem;
   }
   
   .telegram-input {
-    padding: 1rem 1.2rem;
+    padding: 1.25rem 1.5rem;
   }
   
   .telegram-button {
-    padding: 1rem 1.5rem;
-    min-height: 52px;
+    padding: 1.25rem 1.75rem;
+    min-height: 65px;
   }
   
   .telegram-messages {
-    padding: 1rem;
-    min-height: 300px;
-    max-height: 450px;
+    padding: 1.5rem 1.25rem;
+    min-height: 400px;
+    max-height: 550px;
   }
   
   .message-bubble {
-    padding: 1.25rem;
+    padding: 1.5rem;
     max-width: 95%;
   }
   
   .message-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.75rem;
   }
   
   .delete-message-btn {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 0.75rem;
+    right: 0.75rem;
     margin-left: 0;
   }
 }
 
-/* Ultra-wide screen support */
-@media (min-width: 1920px) {
-  .telegram-container {
-    max-width: 1200px;
-    padding: 3rem;
-  }
-}
-
-/* Landscape orientation for mobile */
-@media (max-height: 600px) and (orientation: landscape) {
-  .telegram-container {
-    padding: 1rem;
-  }
-  
-  .telegram-messages {
-    max-height: 400px;
-  }
-  
-  .telegram-input-section {
-    margin-bottom: 1rem;
-  }
-}
-
-/* Dark mode enhancements */
-@media (prefers-color-scheme: dark) {
-  .telegram-input {
-    background: rgba(0, 0, 0, 0.4);
-  }
-  
-  .message-incoming {
-    background: rgba(24, 37, 51, 0.6);
-  }
-}
-
-/* High contrast mode support */
+/* High contrast support */
 @media (prefers-contrast: high) {
   .telegram-input {
     border-width: 3px;
@@ -964,26 +1171,5 @@
   
   .telegram-background {
     display: none;
-  }
-}
-
-/* Print styles */
-@media print {
-  .telegram-background,
-  .telegram-buttons,
-  .delete-message-btn {
-    display: none;
-  }
-  
-  .telegram-input-section,
-  .telegram-messages {
-    box-shadow: none;
-    border: 1px solid #000;
-    background: white;
-  }
-  
-  .telegram-title {
-    background: linear-gradient(135deg, #000, #000) !important;
-    -webkit-text-fill-color: #000 !important;
   }
 }

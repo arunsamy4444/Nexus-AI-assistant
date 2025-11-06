@@ -11,45 +11,50 @@
   --danger: #ff4444;
   --warning: #ffaa00;
   --glass-bg: rgba(255, 255, 255, 0.05);
-  --radius: 16px;
-  --blur: 20px;
-  --shadow: 0 8px 32px rgba(0, 240, 255, 0.1);
-  --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.3);
-  --shadow-danger: 0 8px 32px rgba(255, 68, 68, 0.2);
-  --shadow-success: 0 8px 32px rgba(0, 255, 136, 0.2);
+  --radius: 20px;
+  --blur: 25px;
+  --shadow: 0 12px 40px rgba(0, 240, 255, 0.15);
+  --shadow-glow: 0 0 30px rgba(0, 240, 255, 0.5);
+  --shadow-danger: 0 12px 40px rgba(255, 68, 68, 0.3);
+  --shadow-success: 0 12px 40px rgba(0, 255, 136, 0.3);
+  --font-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
+
+/* Import modern fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Enhanced Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-40px) skewX(-5deg);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) skewX(0);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(40px) skewX(5deg);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) skewX(0);
   }
 }
 
@@ -59,7 +64,7 @@
     box-shadow: var(--shadow);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.08);
     box-shadow: var(--shadow-glow);
   }
 }
@@ -67,11 +72,11 @@
 @keyframes alarmPulse {
   0%, 100% {
     background: var(--danger);
-    box-shadow: 0 0 10px rgba(255, 68, 68, 0.6);
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
   }
   50% {
     background: #ff6b6b;
-    box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
+    box-shadow: 0 0 40px rgba(255, 68, 68, 1);
   }
 }
 
@@ -81,17 +86,21 @@
     color: var(--text-primary);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.15);
     color: var(--warning);
+    text-shadow: 0 0 20px var(--warning);
   }
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
-  50% {
-    transform: translateY(-5px);
+  33% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(-8px) rotate(-3deg);
   }
 }
 
@@ -107,50 +116,101 @@
 @keyframes bounceIn {
   0% {
     opacity: 0;
-    transform: scale(0.3);
+    transform: scale(0.3) rotate(-10deg);
   }
   50% {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.1) rotate(5deg);
   }
   70% {
-    transform: scale(0.9);
+    transform: scale(0.95) rotate(-2deg);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
   }
 }
 
 @keyframes gradientShift {
   0%, 100% {
     background-position: 0% 50%;
+    transform: scale(1);
+  }
+  25% {
+    background-position: 100% 50%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 50% 100%;
+    transform: scale(1.02);
+  }
+  75% {
+    background-position: 0% 100%;
   }
 }
 
 @keyframes particleFloat {
   0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 0.7;
-  }
-  25% {
-    transform: translate(10px, -15px) rotate(90deg);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translate(-5px, -25px) rotate(180deg);
+    transform: translate(0, 0) rotate(0deg) scale(1);
     opacity: 0.8;
   }
-  75% {
-    transform: translate(-15px, -10px) rotate(270deg);
-    opacity: 0.3;
+  20% {
+    transform: translate(20px, -25px) rotate(72deg) scale(1.1);
+    opacity: 0.6;
+  }
+  40% {
+    transform: translate(-15px, -40px) rotate(144deg) scale(0.9);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-30px, -15px) rotate(216deg) scale(1.2);
+    opacity: 0.4;
+  }
+  80% {
+    transform: translate(10px, -30px) rotate(288deg) scale(0.8);
+    opacity: 0.7;
   }
 }
 
-/* Background Animations */
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-100px, -100px) rotate(1deg);
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(5%) translateY(-2%);
+  }
+  50% {
+    transform: translateX(0) translateY(-5%);
+  }
+  75% {
+    transform: translateX(-5%) translateY(-2%);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(200px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(200px) rotate(-360deg);
+  }
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-primary);
+}
+
+/* Advanced Background Animations */
 .reminder-background {
   position: fixed;
   top: 0;
@@ -163,33 +223,33 @@
 
 .background-gradient {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(-45deg, #000000, #0a0a0a, #001122, #002244);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  width: 120%;
+  height: 120%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 68, 68, 0.08) 0%, transparent 50%),
+    linear-gradient(-45deg, #000000, #0a0a0a, #001122, #002244, #000033);
+  background-size: 400% 400%, 200% 200%, 300% 300%, 400% 400%;
+  animation: 
+    gradientShift 20s ease infinite,
+    wave 40s ease-in-out infinite;
+  filter: blur(0.5px);
 }
 
 .background-grid {
   position: absolute;
-  width: 200%;
-  height: 200%;
+  width: 300%;
+  height: 300%;
   background-image: 
-    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: gridMove 60s linear infinite;
+    linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 80s linear infinite;
+  transform-origin: center;
 }
 
-@keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-50px, -50px);
-  }
-}
-
+/* Enhanced Particle System */
 .floating-particles {
   position: absolute;
   width: 100%;
@@ -198,29 +258,59 @@
 
 .particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--accent);
   border-radius: 50%;
-  animation: particleFloat 20s infinite linear;
+  background: var(--accent);
+  animation: particleFloat 30s infinite ease-in-out;
+  box-shadow: 0 0 20px currentColor;
 }
 
-.particle:nth-child(2n) {
-  background: var(--success);
-  animation-duration: 25s;
+.particle:nth-child(odd) {
+  background: #00ff88;
+  animation-duration: 35s;
+  animation-delay: -8s;
 }
 
 .particle:nth-child(3n) {
-  background: var(--warning);
+  background: #ffaa00;
+  animation-duration: 40s;
+  animation-delay: -12s;
+}
+
+.particle:nth-child(4n) {
+  background: #ff4444;
+  animation-duration: 32s;
+  animation-delay: -15s;
+}
+
+/* Orbital elements */
+.orbital-element {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 240, 255, 0.6);
+  animation: orbit 25s linear infinite;
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.orbital-element:nth-child(2) {
   animation-duration: 30s;
+  animation-delay: -8s;
+  background: rgba(0, 255, 136, 0.5);
+}
+
+.orbital-element:nth-child(3) {
+  animation-duration: 35s;
+  animation-delay: -15s;
+  background: rgba(255, 170, 0, 0.4);
 }
 
 /* Enhanced Reminder Form Container */
 .reminder-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
-  animation: fadeInUp 0.8s ease-out;
+  padding: 3rem;
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   min-height: 100vh;
 }
@@ -228,43 +318,68 @@
 .reminder-layout {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .reminder-header {
   text-align: center;
   margin-bottom: 0;
-  animation: fadeInUp 0.8s ease-out 0.2s both;
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both;
 }
 
 .reminder-title {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--accent) 30%, #00ff88 70%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   position: relative;
   display: inline-block;
-  line-height: 1.2;
+  line-height: 1.1;
+  font-family: var(--font-primary);
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 60px rgba(0, 240, 255, 0.4);
+}
+
+.reminder-title::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(135deg, transparent, var(--accent-glow), transparent);
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: glow 3s ease-in-out infinite;
 }
 
 .reminder-title::after {
   content: '⏰';
   position: absolute;
-  top: -0.5rem;
-  right: -3rem;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px var(--accent-glow));
+  top: -0.75rem;
+  right: -3.5rem;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px var(--accent-glow));
+  text-shadow: 0 0 30px var(--accent);
 }
 
 .reminder-subtitle {
   color: var(--text-secondary);
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
   font-weight: 300;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  line-height: 1.6;
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 1s ease-out 0.5s both;
 }
 
 /* Enhanced Form Styles */
@@ -272,11 +387,13 @@
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  padding: clamp(2rem, 4vw, 3rem);
-  border: 1px solid rgba(0, 240, 255, 0.1);
-  box-shadow: var(--shadow);
-  margin-bottom: 2rem;
-  animation: slideInLeft 0.6s ease-out 0.4s both;
+  padding: clamp(2.5rem, 5vw, 3.5rem);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin-bottom: 2.5rem;
+  animation: slideInLeft 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both;
   position: relative;
   overflow: hidden;
 }
@@ -288,117 +405,136 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-  transition: left 0.6s ease;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reminder-form:hover::before {
   left: 100%;
 }
 
+.reminder-form::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: glow 3s ease-in-out infinite;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .form-group {
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
   position: relative;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   color: var(--text-primary);
   font-weight: 600;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-  transition: all 0.3s ease;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
 }
 
 .form-input {
   width: 100%;
-  padding: clamp(1.1rem, 3vw, 1.3rem) clamp(1.3rem, 3vw, 1.7rem);
+  padding: clamp(1.25rem, 4vw, 1.6rem) clamp(1.5rem, 4vw, 2rem);
   background: rgba(0, 0, 0, 0.4);
-  border: 2px solid rgba(0, 240, 255, 0.15);
+  border: 2px solid rgba(0, 240, 255, 0.2);
   border-radius: var(--radius);
   color: var(--text-primary);
-  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  font-size: clamp(1rem, 3vw, 1.2rem);
   font-weight: 400;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   outline: none;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
+  font-family: var(--font-primary);
+  box-shadow: var(--shadow);
 }
 
 .form-input:focus {
   border-color: var(--accent);
   box-shadow: var(--shadow-glow);
-  transform: translateY(-2px);
+  transform: translateY(-5px) scale(1.02);
   background: rgba(0, 0, 0, 0.5);
 }
 
 .form-input::placeholder {
   color: var(--text-secondary);
   font-weight: 300;
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  font-style: italic;
 }
 
 /* Enhanced Date and Time Input Styling */
 .form-input[type="date"],
 .form-input[type="time"] {
   position: relative;
-  min-height: 54px;
+  min-height: 64px;
 }
 
 .form-input[type="date"]::-webkit-calendar-picker-indicator,
 .form-input[type="time"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+  filter: invert(1) brightness(2);
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: background 0.3s ease;
+  padding: 0.75rem;
+  border-radius: 6px;
+  transition: all 0.4s ease;
 }
 
 .form-input[type="date"]::-webkit-calendar-picker-indicator:hover,
 .form-input[type="time"]::-webkit-calendar-picker-indicator:hover {
-  background: rgba(0, 240, 255, 0.1);
+  background: rgba(0, 240, 255, 0.2);
+  transform: scale(1.1);
 }
 
 /* Enhanced Textarea */
 textarea.form-input {
   resize: vertical;
-  min-height: 120px;
-  max-height: 200px;
-  line-height: 1.5;
-  font-family: inherit;
+  min-height: 140px;
+  max-height: 250px;
+  line-height: 1.6;
+  font-family: var(--font-primary);
 }
 
 /* Enhanced Buttons */
 .reminder-buttons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.25rem;
-  margin-top: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
 }
 
 .reminder-button {
-  padding: clamp(1.1rem, 3vw, 1.3rem) clamp(1.5rem, 4vw, 2rem);
+  padding: clamp(1.25rem, 4vw, 1.6rem) clamp(1.75rem, 5vw, 2.5rem);
   border: none;
   border-radius: var(--radius);
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
-  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.2rem);
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 1rem;
   position: relative;
   overflow: hidden;
-  min-height: 56px;
+  min-height: 70px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
+  font-family: var(--font-primary);
+  box-shadow: var(--shadow);
 }
 
 .reminder-button::before {
@@ -408,8 +544,8 @@ textarea.form-input {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reminder-button:hover::before {
@@ -419,14 +555,13 @@ textarea.form-input {
 .reminder-button.primary {
   background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   color: var(--primary-bg);
-  box-shadow: var(--shadow);
 }
 
 .reminder-button.primary:hover {
   background: linear-gradient(135deg, var(--accent-hover), var(--accent));
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.05);
   box-shadow: var(--shadow-glow);
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 .reminder-button.danger {
@@ -437,8 +572,8 @@ textarea.form-input {
 
 .reminder-button.danger:hover {
   background: linear-gradient(135deg, #ff6b6b, var(--danger));
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(255, 68, 68, 0.4);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(255, 68, 68, 0.5);
 }
 
 .reminder-button:disabled {
@@ -451,60 +586,79 @@ textarea.form-input {
 .reminder-button:disabled:hover {
   transform: none !important;
   box-shadow: var(--shadow) !important;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
 }
 
 /* Enhanced Reminders List */
 .reminders-section {
-  animation: slideInRight 0.6s ease-out 0.6s both;
+  animation: slideInRight 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.6s both;
 }
 
 .reminders-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .reminders-title {
   color: var(--text-primary);
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 800;
   margin: 0;
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: var(--font-primary);
 }
 
 .clear-all-btn {
-  background: rgba(255, 68, 68, 0.1);
+  background: rgba(255, 68, 68, 0.15);
   border: 1px solid var(--danger);
   color: var(--danger);
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 2rem;
   border-radius: var(--radius);
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   backdrop-filter: blur(var(--blur));
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-danger);
+}
+
+.clear-all-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+
+.clear-all-btn:hover::before {
+  left: 100%;
 }
 
 .clear-all-btn:hover {
-  background: var(--danger);
+  background: linear-gradient(135deg, var(--danger), #ff6b6b);
   color: var(--text-primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-danger);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(255, 68, 68, 0.4);
 }
 
 .reminders-list {
   display: grid;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 /* Enhanced Reminder Item */
@@ -512,11 +666,11 @@ textarea.form-input {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  padding: clamp(1.5rem, 3vw, 2rem);
-  border: 1px solid rgba(0, 240, 255, 0.1);
+  padding: clamp(2rem, 4vw, 2.5rem);
+  border: 1px solid rgba(0, 240, 255, 0.15);
   box-shadow: var(--shadow);
-  animation: fadeInUp 0.5s ease-out;
-  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -527,20 +681,20 @@ textarea.form-input {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 6px;
   height: 100%;
   background: var(--accent);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reminder-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-glow);
-  border-color: rgba(0, 240, 255, 0.2);
+  border-color: rgba(0, 240, 255, 0.3);
 }
 
 .reminder-item:hover::before {
-  width: 6px;
+  width: 8px;
   background: var(--accent-hover);
 }
 
@@ -565,9 +719,9 @@ textarea.form-input {
 .reminder-header-info {
   display: grid;
   grid-template-columns: 1fr auto auto;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: start;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .reminder-info-main {
@@ -576,38 +730,43 @@ textarea.form-input {
 }
 
 .reminder-name {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 700;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-weight: 800;
   color: var(--accent);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   line-height: 1.3;
   word-wrap: break-word;
+  font-family: var(--font-primary);
+  text-shadow: 0 0 20px var(--accent-glow);
 }
 
 .reminder-time {
-  background: rgba(0, 240, 255, 0.1);
-  padding: 0.75rem 1.25rem;
-  border-radius: 25px;
-  font-weight: 600;
+  background: rgba(0, 240, 255, 0.15);
+  padding: 1rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 700;
   color: var(--accent);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  transition: all 0.3s ease;
+  gap: 1rem;
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-mono);
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.2);
 }
 
 .reminder-item:hover .reminder-time {
-  background: rgba(0, 240, 255, 0.2);
-  transform: scale(1.05);
+  background: rgba(0, 240, 255, 0.25);
+  transform: scale(1.08);
 }
 
 .reminder-reason {
   color: var(--text-primary);
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
-  margin-bottom: 1.25rem;
+  font-size: clamp(1.1rem, 3vw, 1.2rem);
+  margin-bottom: 1.5rem;
   line-height: 1.6;
   word-wrap: break-word;
+  font-family: var(--font-primary);
 }
 
 .reminder-meta {
@@ -615,33 +774,37 @@ textarea.form-input {
   justify-content: space-between;
   align-items: center;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .reminder-status {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.8rem;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .status-pending {
-  background: rgba(255, 170, 0, 0.15);
+  background: rgba(255, 170, 0, 0.2);
   color: var(--warning);
-  border: 1px solid rgba(255, 170, 0, 0.3);
+  border: 1px solid rgba(255, 170, 0, 0.4);
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
 }
 
 .status-triggered {
-  background: rgba(0, 255, 136, 0.15);
+  background: rgba(0, 255, 136, 0.2);
   color: var(--success);
-  border: 1px solid rgba(0, 255, 136, 0.3);
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
 .delete-reminder-btn {
@@ -649,90 +812,131 @@ textarea.form-input {
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  padding: 0.75rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  font-size: 1.3rem;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.delete-reminder-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s;
+}
+
+.delete-reminder-btn:hover::before {
+  left: 100%;
 }
 
 .delete-reminder-btn:hover {
   color: var(--danger);
-  background: rgba(255, 68, 68, 0.1);
-  transform: scale(1.1);
+  background: rgba(255, 68, 68, 0.15);
+  transform: scale(1.2) rotate(5deg);
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
 }
 
 /* Enhanced Alarm Active State */
 .alarm-active {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   background: linear-gradient(135deg, var(--danger), #ff6b6b);
   color: var(--text-primary);
-  padding: 1.25rem 1.75rem;
+  padding: 1.5rem 2rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow-danger);
-  animation: alarmPulse 1s ease-in-out infinite;
+  animation: alarmPulse 1.2s ease-in-out infinite;
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-weight: 700;
-  font-size: 1.1rem;
-  max-width: 400px;
+  gap: 1.25rem;
+  font-weight: 800;
+  font-size: 1.2rem;
+  max-width: 450px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .stop-alarm-btn {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.stop-alarm-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s;
+}
+
+.stop-alarm-btn:hover::before {
+  left: 100%;
 }
 
 .stop-alarm-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.1);
 }
 
 /* Enhanced Empty State */
 .reminders-empty {
   text-align: center;
-  padding: clamp(3rem, 6vw, 5rem) 2rem;
+  padding: clamp(4rem, 8vw, 6rem) 3rem;
   color: var(--text-secondary);
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  box-shadow: var(--shadow);
 }
 
 .reminders-empty-icon {
-  font-size: clamp(3rem, 8vw, 5rem);
-  margin-bottom: 1.5rem;
-  opacity: 0.5;
-  animation: float 4s ease-in-out infinite;
+  font-size: clamp(4rem, 10vw, 6rem);
+  margin-bottom: 2rem;
+  opacity: 0.6;
+  animation: float 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px var(--accent-glow));
 }
 
 .reminders-empty-text {
-  font-size: clamp(1.3rem, 3vw, 1.6rem);
-  margin-bottom: 0.75rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1rem;
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font-primary);
 }
 
 .reminders-empty-subtext {
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
   opacity: 0.7;
-  line-height: 1.5;
-  max-width: 400px;
+  line-height: 1.6;
+  max-width: 450px;
   margin: 0 auto;
+  font-family: var(--font-primary);
 }
 
 /* Enhanced Loading Animation */
@@ -740,22 +944,24 @@ textarea.form-input {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 3rem;
+  gap: 1.5rem;
+  padding: 4rem;
   color: var(--text-secondary);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur));
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  box-shadow: var(--shadow);
 }
 
 .loading-spinner {
-  width: 28px;
-  height: 28px;
-  border: 3px solid rgba(0, 240, 255, 0.3);
-  border-top: 3px solid var(--accent);
+  width: 35px;
+  height: 35px;
+  border: 4px solid rgba(0, 240, 255, 0.3);
+  border-top: 4px solid var(--accent);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
 }
 
 @keyframes spin {
@@ -765,79 +971,85 @@ textarea.form-input {
 
 /* Enhanced Success Message */
 .success-message {
-  background: rgba(0, 255, 136, 0.1);
+  background: rgba(0, 255, 136, 0.15);
   border: 1px solid var(--success);
   color: var(--success);
-  padding: 1.25rem 1.75rem;
+  padding: 1.5rem 2rem;
   border-radius: var(--radius);
-  margin-bottom: 1.5rem;
-  animation: bounceIn 0.6s ease-out;
+  margin-bottom: 2rem;
+  animation: bounceIn 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-weight: 600;
+  gap: 1.25rem;
+  font-weight: 700;
   backdrop-filter: blur(var(--blur));
   box-shadow: var(--shadow-success);
+  font-family: var(--font-primary);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
 /* User Session Info */
 .user-session-info {
   text-align: center;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  animation: fadeInUp 0.8s ease-out 0.8s both;
+  font-size: 1rem;
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.8s both;
+  font-family: var(--font-primary);
 }
 
 .login-reminder {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  background: rgba(0, 240, 255, 0.05);
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(0, 240, 255, 0.08);
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.2);
   text-align: center;
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--shadow);
 }
 
 .login-reminder p {
   margin: 0;
   color: var(--accent);
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 /* Enhanced Responsive Design */
 @media (max-width: 1024px) {
   .reminder-container {
-    padding: 1.5rem;
+    padding: 2rem;
     max-width: 100%;
   }
   
   .reminder-layout {
+    gap: 2rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .reminder-container {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   
   .reminder-layout {
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
   .reminder-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   
   .reminder-form {
-    padding: 2rem 1.5rem;
-  }
-  
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    padding: 2.5rem 2rem;
   }
   
   .reminder-buttons {
@@ -846,29 +1058,29 @@ textarea.form-input {
   
   .reminder-header-info {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.25rem;
   }
   
   .reminder-meta {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   
   .alarm-active {
-    top: 10px;
-    right: 10px;
-    left: 10px;
+    top: 20px;
+    right: 20px;
+    left: 20px;
     text-align: center;
     justify-content: center;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   
   .reminders-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
+    gap: 1.25rem;
   }
   
   .clear-all-btn {
@@ -878,86 +1090,61 @@ textarea.form-input {
 
 @media (max-width: 480px) {
   .reminder-container {
-    padding: 0.75rem;
-  }
-  
-  .reminder-title {
-    font-size: 1.8rem;
-  }
-  
-  .reminder-subtitle {
-    font-size: 1rem;
-  }
-  
-  .reminder-form {
-    padding: 1.5rem 1rem;
-  }
-  
-  .form-input {
-    padding: 1rem 1.2rem;
-  }
-  
-  .reminder-button {
-    padding: 1rem 1.5rem;
-    min-height: 52px;
-  }
-  
-  .reminder-item {
-    padding: 1.25rem;
-  }
-  
-  .reminder-name {
-    font-size: 1.1rem;
-  }
-  
-  .reminder-time {
-    padding: 0.5rem 1rem;
-  }
-}
-
-/* Ultra-wide screen support */
-@media (min-width: 1920px) {
-  .reminder-container {
-    max-width: 1000px;
-    padding: 3rem;
-  }
-}
-
-/* Landscape orientation for mobile */
-@media (max-height: 600px) and (orientation: landscape) {
-  .reminder-container {
     padding: 1rem;
   }
   
-  .reminder-form {
-    margin-bottom: 1rem;
+  .reminder-title {
+    font-size: 2rem;
   }
   
-  .reminders-section {
-    max-height: 400px;
-    overflow-y: auto;
+  .reminder-subtitle {
+    font-size: 1.1rem;
   }
-}
-
-/* Dark mode enhancements */
-@media (prefers-color-scheme: dark) {
+  
+  .reminder-form {
+    padding: 2rem 1.5rem;
+  }
+  
   .form-input {
-    background: rgba(0, 0, 0, 0.4);
+    padding: 1.25rem 1.5rem;
+  }
+  
+  .reminder-button {
+    padding: 1.25rem 1.75rem;
+    min-height: 65px;
   }
   
   .reminder-item {
-    background: rgba(0, 0, 0, 0.3);
+    padding: 1.75rem;
+  }
+  
+  .reminder-name {
+    font-size: 1.3rem;
+  }
+  
+  .reminder-time {
+    padding: 0.875rem 1.25rem;
   }
 }
 
-/* High contrast mode support */
+/* Focus states for accessibility */
+.reminder-button:focus-visible,
+.form-input:focus-visible,
+.clear-all-btn:focus-visible,
+.delete-reminder-btn:focus-visible,
+.stop-alarm-btn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* High contrast support */
 @media (prefers-contrast: high) {
   .form-input {
     border-width: 3px;
   }
   
   .reminder-button {
-    border-width: 2px;
+    border: 2px solid currentColor;
   }
   
   .reminder-item {
@@ -975,28 +1162,5 @@ textarea.form-input {
   
   .reminder-background {
     display: none;
-  }
-}
-
-/* Print styles */
-@media print {
-  .reminder-background,
-  .reminder-buttons,
-  .delete-reminder-btn,
-  .clear-all-btn,
-  .stop-alarm-btn {
-    display: none;
-  }
-  
-  .reminder-form,
-  .reminder-item {
-    box-shadow: none;
-    border: 1px solid #000;
-    background: white;
-  }
-  
-  .reminder-title {
-    background: linear-gradient(135deg, #000, #000) !important;
-    -webkit-text-fill-color: #000 !important;
   }
 }
