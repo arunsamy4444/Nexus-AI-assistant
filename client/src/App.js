@@ -482,27 +482,37 @@ function App() {
     addToast("Performance warning dismissed", "info", 3000);
   };
 
-  if (loading) {
-    return (
-      <div className="loading-screen">
-        <div className="network-bg"></div>
-        <div className="network-pattern"></div>
-        <div className="bg-animated"></div>
-        <div className="loading-container">
-          <div className="nexus-loader">
-            <div className="loader-orb"></div>
-            <div className="loader-orb"></div>
-            <div className="loader-orb"></div>
-          </div>
-          <h2>Initializing Nexus</h2>
-          <p>Loading your AI assistant experience...</p>
-          <div className="performance-hint">
-            <small>Running on free tier - may be slower than localhost</small>
-          </div>
+if (loading) {
+  return (
+    <div className="loading-screen">
+      <div className="network-bg"></div>
+      <div className="network-pattern"></div>
+      <div className="bg-animated"></div>
+      <div className="loading-container">
+        <div className="nexus-loader">
+          <div className="loader-orb"></div>
+          <div className="loader-orb"></div>
+          <div className="loader-orb"></div>
+        </div>
+        <h2>Initializing Nexus</h2>
+        <p>Loading your AI assistant experience...</p>
+        <div className="performance-hint">
+          <small>
+            Running on free tier -{" "}
+            <a 
+              href="https://github.com/arunsamy4444/Nexus-AI-assistant" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{color: '#5AB0FF', textDecoration: 'underline'}}
+            >
+              run locally for better performance
+            </a>
+          </small>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   return (
     <Router>
