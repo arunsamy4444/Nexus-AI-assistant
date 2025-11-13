@@ -1,3 +1,21 @@
-*.js linguist-language=JavaScript
-*.jsx linguist-language=JavaScript
-*.css linguist-language=CSS
+# NUCLEAR OPTION - FORCE JAVASCRIPT
+* linguist-language=JavaScript
+
+# Completely disable CSS detection  
+*.css linguist-language=JavaScript linguist-detectable=false
+
+# Force these as JavaScript
+*.html linguist-language=JavaScript
+*.json linguist-language=JavaScript
+*.md linguist-language=JavaScript
+
+# Vendor dependencies
+package-lock.json linguist-vendored
+node_modules/ linguist-vendored
+*.min.* linguist-vendored
+yarn.lock linguist-vendored
+dist/ linguist-vendored
+build/ linguist-vendored
+.DS_Store linguist-vendored
+.env linguist-vendored
+.env.* linguist-vendored
