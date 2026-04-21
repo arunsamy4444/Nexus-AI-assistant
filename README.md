@@ -1,72 +1,44 @@
-Nexus AI Assistant 🤖
-A modern, voice-enabled AI assistant with real-time communication features and smart reminders.
+# Nexus AI Assistant
 
-✨ Features
-💬 AI Chatbot - Powered by Puter.js with text-to-speech
+A voice-enabled system for triggering reminders and sending real-time notifications across users and messaging platforms.
 
-📱 Telegram Integration - Real messaging with your bot
+## Context
 
-⏰ Smart Reminders - Voice alerts and notifications
+In small operational environments (shops, warehouses, agri units), workers often rely on manual coordination and verbal instructions. This leads to missed tasks and delays.
 
-📊 Activity History - Track all your interactions
+This system tests a simple approach:
+voice input → task trigger → automated notification.
 
-🎤 Voice Control - Speak instead of type
+## Features
 
-🔐 Secure Auth - User accounts with Supabase
+- AI Chat Interface (Puter.js with text-to-speech)
+- Voice Input (browser-based speech recognition)
+- Telegram Integration (send and receive messages)
+- Reminder System (scheduled alerts and notifications)
+- Activity History (logs user interactions)
+- Authentication (Supabase-based user accounts)
 
-🚀 Quick Start
-Sign Up - Create your account
+## Use Case
 
-Enable Microphone - Allow voice input in browser
+A worker or supervisor can:
+- Speak a task or reminder
+- Store it in the system
+- Trigger a scheduled notification
+- Deliver it via Telegram or voice output
 
-Start Chatting - Type or speak to the AI
+This reduces reliance on manual tracking and repeated verbal communication.
 
-Set Reminders - Get voice notifications
+## Tech Stack
 
-Connect Telegram - Link your messaging
-
-🎯 Use Cases
-Personal Assistant - Daily tasks and information
-
-Health Reminders - Medication and appointment alerts
-
-Team Communication - Telegram group coordination
-
-Learning Companion - AI-powered Q&A
-
-🛠 Tech Stack
-Frontend: React, CSS3, Web Speech API
-
-Backend: Node.js, Express, Telegram Bot API
-
-Database: Supabase (PostgreSQL)
-
-AI: Puter.js AI services
-
+Frontend: React, CSS3, Web Speech API  
+Backend: Node.js, Express  
+Messaging: Telegram Bot API  
+Database: Supabase (PostgreSQL)  
+AI: Puter.js  
 Auth: Supabase Authentication
 
-📱 Responsive Design
-Works perfectly on:
+## Notes
 
-📱 Mobile phones
-
-💻 Tablets
-
-🖥 Desktop computers
-
-🌐 All modern browsers
-
-🎨 Features Highlights
-🎤 Voice input & output
-
-🔔 Smart reminder system
-
-💬 Real Telegram messaging
-
-📈 Activity tracking
-
-🎯 Glass morphism UI
-
-⚡ Fast and responsive
-
-Start your AI journey today! 🚀
+- Designed as a prototype to test voice-based task triggering
+- Not optimized for large-scale deployment
+- Application is deployed on free-tier services (Vercel, Render); backend instances may enter sleep mode during inactivity, which can delay initial response times
